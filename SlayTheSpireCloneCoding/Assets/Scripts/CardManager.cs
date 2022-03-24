@@ -21,7 +21,7 @@ public class CardManager : MonoBehaviour
         return cardData; 
     }
 
-    void SetupCardDeck()
+    void SetupCardDeck() // 카드 덱 제작 및 셔플
     {
         cardDeck = new List<CardData>();
         // TODO: 현재는 존재하는 카드 리스트에서 카드 뽑아옴. 덱-> 사용가능덱->손패->버림덱으로 바꿀 것.
@@ -40,7 +40,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void Start() // 시작할 때 덱 셋업
     {
         SetupCardDeck();
     }
@@ -50,4 +50,7 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad1)) // 디버그용 치트: 덱에서 뽑기
             print(PopItem().name);
     }
+
+
+
 }
