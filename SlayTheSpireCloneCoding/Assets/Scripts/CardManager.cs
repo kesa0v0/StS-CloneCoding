@@ -8,8 +8,11 @@ public class CardManager : MonoBehaviour
     void Awake() => Inst = this;
 
     [SerializeField] CardSO cardSO;
+    [SerializeField] GameObject cardPrefab;
 
+    
     List<CardData> cardDeck;
+
 
     public CardData PopItem() // 카드뽑기
     {
@@ -47,10 +50,14 @@ public class CardManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1)) // 디버그용 치트: 덱에서 뽑기
-            print(PopItem().name);
+        if (Input.GetKeyDown(KeyCode.Keypad1)) // 디버그용 치트
+            AddCard();
     }
 
-
+    void AddCard() {
+        var cardObject = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
+        var card = cardObject.GetComponent<Card>();
+        card.Setup(PopItem());
+    }
 
 }

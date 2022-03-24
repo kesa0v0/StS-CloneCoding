@@ -15,7 +15,7 @@ public class Card : MonoBehaviour
     public CardData cardData;
     bool isfront;
 
-    public void Setup(CardData cardData, bool isfront)
+    public void Setup(CardData cardData, bool isfront=true)
     {
         this.cardData = cardData;
         this.isfront = isfront;
