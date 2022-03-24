@@ -9,7 +9,7 @@ public class CardData
     public int energy;
     public Sprite sprite;
 
-    public int[] Effects; //TOGO: int -> effects
+    public int[] Effects; // TODO: int -> effects
 
     public void ApplyEffeect(){
         Debug.Log("EFFECT TEST");
