@@ -15,6 +15,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform handCardRight;
 
     List<CardData> cardDeck;
+    Card selectCard;
 
 
     public CardData PopItem() // 카드뽑기
@@ -52,12 +53,9 @@ public class CardManager : MonoBehaviour
         TurnManager.OnAddCard += AddCard; // 카드추가 이벤트 반응 추가
     }
 
-    private void OnDestroy() {
-        TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
-    }
-
-    private void Update()
+    private void OnDestroy()
     {
+        TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
     }
 
     void AddCard() // 카드 Instantiate
@@ -130,4 +128,33 @@ public class CardManager : MonoBehaviour
 
         return results;
     }
+
+
+    #region MyCard
+
+    public void CardMouseOver(Card card)
+    {
+        selectCard = card;
+        EnlargeCard(true, card);
+    }
+
+    public void CardMouseExit(Card card)
+    {
+        EnlargeCard(false, card);
+    }
+
+    void EnlargeCard(bool isEnlarge, Card card) // 카드 확대
+    {
+        if (isEnlarge)
+        {
+            Vector3 enlargePos = new Vector3(card.originPRS.pos.x, -4f, -10f);
+            card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 3.5f), false);
+        }
+        else
+            card.MoveTransform(card.originPRS, false);
+
+        card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+    }
+
+    #endregion
 }

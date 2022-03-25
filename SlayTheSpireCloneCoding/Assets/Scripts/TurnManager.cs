@@ -15,7 +15,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField][Tooltip("시작 카드 개수를 정합니다")] int startCardCount;
 
     [Header("Properties")]
-    public bool myTurn;
+    public bool isMyTurn;
     public bool isLoading;
 
     enum ETurnMode { Random, My, Other }
@@ -33,13 +33,13 @@ public class TurnManager : MonoBehaviour
         switch (eTurnMode)
         { // 누구 턴으로 시작할 것인지 정함 아마 항상 내턴일듯
             case ETurnMode.Random: // 랜덤
-                myTurn = Random.Range(0, 2) == 0;
+                isMyTurn = Random.Range(0, 2) == 0;
                 break;
             case ETurnMode.My:
-                myTurn = true;
+                isMyTurn = true;
                 break;
             case ETurnMode.Other:
-                myTurn = false;
+                isMyTurn = false;
                 break;
         }
     }
@@ -60,10 +60,20 @@ public class TurnManager : MonoBehaviour
     IEnumerator StartTurnCo()
     {
         isLoading = true;
-        
-        yield return delay07;
-        OnAddCard?.Invoke(); // 무조건 나한테 카드 추가. FIXME: 내턴 아닐때 시작시 실행 안하도록 하기
-        yield return delay07;
+        if (isMyTurn)
+        {
+            GameManager.Inst.Notificaiton("나의 턴");
+            yield return delay07;
+            OnAddCard?.Invoke();
+            yield return delay07;
+        }
+
         isLoading = false;
+    }
+
+    public void EndTurn()
+    {
+        isMyTurn = !isMyTurn;
+        StartCoroutine(StartTurnCo());
     }
 }
