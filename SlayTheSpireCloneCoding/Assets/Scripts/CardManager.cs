@@ -9,8 +9,8 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] CardSO cardSO;
     [SerializeField] GameObject cardPrefab;
+    [SerializeField] List<Card> handCard;
 
-    
     List<CardData> cardDeck;
 
 
@@ -21,7 +21,7 @@ public class CardManager : MonoBehaviour
 
         CardData cardData = cardDeck[0];
         cardDeck.RemoveAt(0);
-        return cardData; 
+        return cardData;
     }
 
     void SetupCardDeck() // 카드 덱 제작 및 셔플
@@ -54,10 +54,25 @@ public class CardManager : MonoBehaviour
             AddCard();
     }
 
-    void AddCard() {
+    void AddCard() // 카드 Instantiate
+    {
         var cardObject = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
         var card = cardObject.GetComponent<Card>();
         card.Setup(PopItem());
+
+        handCard.Add(card);
+
+        SetOriginOrder();
+    }
+
+    void SetOriginOrder() // 카드 오더 정하는 것
+    {
+        int count = handCard.Count;
+        for (int i = 0; i < count; i++) // TODO: 이거 카드 추가할 때 마다 반복문 돌려서 count 높아질수록 리소스 많이 잡아먹을꺼같은데
+        {
+            var targetCard = handCard[i];
+            targetCard?.GetComponent<Order>().SetOriginOrder(i);
+        }
     }
 
 }
