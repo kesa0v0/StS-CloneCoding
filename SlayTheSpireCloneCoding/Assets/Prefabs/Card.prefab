@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 6444647801126565370}
   - component: {fileID: 6875701841680169411}
   - component: {fileID: 6444647801126565316}
-  - component: {fileID: -8980861234053505689}
+  - component: {fileID: -2113290797962730644}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -386,7 +386,7 @@ MonoBehaviour:
   - {fileID: 6444647800678128955}
   - {fileID: 6444647801424550920}
   sortingLayerName: Card
---- !u!60 &-8980861234053505689
+--- !u!60 &-2113290797962730644
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,10 +413,10 @@ PolygonCollider2D:
     m_Paths:
     - - {x: -1.46875, y: 1.9375}
       - {x: -1.46875, y: -1.9375}
-      - {x: -0.96850264, y: -1.9493532}
-      - {x: -0.8935672, y: -2.990885}
-      - {x: 0.3379186, y: -2.992082}
-      - {x: 0.3361842, y: -1.9485483}
+      - {x: -1.0914836, y: -1.9391048}
+      - {x: -1.057542, y: -2.8986487}
+      - {x: 1.01136, y: -2.9091933}
+      - {x: 1.0950441, y: -1.9429604}
       - {x: 1.46875, y: -1.9375}
       - {x: 1.46875, y: 1.9375}
 --- !u!1 &6444647801424550927

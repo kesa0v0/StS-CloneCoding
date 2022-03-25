@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CardManager : MonoBehaviour
 {
@@ -16,7 +18,8 @@ public class CardManager : MonoBehaviour
 
     List<CardData> cardDeck;
     Card selectCard;
-
+    bool isMyCardDrag;
+    bool onMyCardArea;
 
     public CardData PopItem() // 카드뽑기
     {
@@ -56,6 +59,13 @@ public class CardManager : MonoBehaviour
     private void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
+    }
+
+    private void Update() {
+        if (isMyCardDrag)
+            CardDrag();
+        
+        DetectCardArea();
     }
 
     void AddCard() // 카드 Instantiate
@@ -141,6 +151,31 @@ public class CardManager : MonoBehaviour
     public void CardMouseExit(Card card)
     {
         EnlargeCard(false, card);
+    }
+
+    public void CardMouseDown()
+    {
+        isMyCardDrag = true;
+    }
+
+    public void CardMouseUp()
+    {
+        isMyCardDrag = false;
+    }
+
+    private void CardDrag()
+    {
+        if (!onMyCardArea)
+        {
+            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
+        }
+    }
+
+    void DetectCardArea() // 마우스가 카드 영역에 있는지 확인
+    {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
+        int layer = LayerMask.NameToLayer("MyCardArea");
+        onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);
     }
 
     void EnlargeCard(bool isEnlarge, Card card) // 카드 확대

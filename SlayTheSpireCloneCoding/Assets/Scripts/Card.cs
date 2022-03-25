@@ -59,4 +59,12 @@ public class Card : MonoBehaviour
     private void OnMouseExit() {
         CardManager.Inst.CardMouseExit(this);
     }
+
+    private void OnMouseDown() {
+        CardManager.Inst.CardMouseDown();
+    }
+
+    private void OnMouseUp() {
+        CardManager.Inst.CardMouseUp();
+    }
 }
