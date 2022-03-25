@@ -17,3 +17,7 @@ MonoBehaviour:
     energy: 1
     sprite: {fileID: 0}
     Effects: 
+  - name: AddDefenseOnMyself
+    energy: 1
+    sprite: {fileID: 0}
+    Effects: 
