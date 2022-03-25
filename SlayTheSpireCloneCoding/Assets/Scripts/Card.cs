@@ -52,19 +52,23 @@ public class Card : MonoBehaviour
         }
     }
 
-    private void OnMouseOver() {
+    private void OnMouseOver()
+    {
         CardManager.Inst.CardMouseOver(this);
     }
-    
-    private void OnMouseExit() {
+
+    private void OnMouseExit()
+    {
         CardManager.Inst.CardMouseExit(this);
     }
 
-    private void OnMouseDown() {
+    private void OnMouseDown()
+    {
         CardManager.Inst.CardMouseDown();
     }
 
-    private void OnMouseUp() {
+    private void OnMouseUp()
+    {
         CardManager.Inst.CardMouseUp();
     }
 }

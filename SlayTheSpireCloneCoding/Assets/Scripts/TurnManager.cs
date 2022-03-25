@@ -47,8 +47,8 @@ public class TurnManager : MonoBehaviour
     public IEnumerator StartGameCo()
     {
         GameSetup();
-
         isLoading = true;
+
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
