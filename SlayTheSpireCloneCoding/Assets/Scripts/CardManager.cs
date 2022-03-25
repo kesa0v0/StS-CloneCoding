@@ -49,12 +49,15 @@ public class CardManager : MonoBehaviour
     void Start() // 시작할 때 덱 셋업
     {
         SetupCardDeck();
+        TurnManager.OnAddCard += AddCard; // 카드추가 이벤트 반응 추가
+    }
+
+    private void OnDestroy() {
+        TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1)) // 디버그용 치트
-            AddCard();
     }
 
     void AddCard() // 카드 Instantiate
@@ -90,7 +93,7 @@ public class CardManager : MonoBehaviour
             var targetCard = targetCards[i];
 
             targetCard.originPRS = originCardPRSs[i];
-            targetCard.MoveTransform(targetCard.originPRS, true, 0.3f);
+            targetCard.MoveTransform(targetCard.originPRS, true, 0.9f);
         }
     }
 
