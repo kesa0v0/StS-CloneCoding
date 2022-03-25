@@ -15,11 +15,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform cardSpawnPoint;
     [SerializeField] Transform handCardLeft;
     [SerializeField] Transform handCardRight;
+    [SerializeField] ECardState eCardState;
 
     List<CardData> cardDeck;
     Card selectCard;
     bool isMyCardDrag;
     bool onMyCardArea;
+    enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
 
     public CardData PopItem() // 카드뽑기
     {
@@ -56,16 +58,18 @@ public class CardManager : MonoBehaviour
         TurnManager.OnAddCard += AddCard; // 카드추가 이벤트 반응 추가
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
     }
 
-    private void Update() {
+    void Update()
+    {
         if (isMyCardDrag)
             CardDrag();
-        
+
         DetectCardArea();
+        SetECardState();
     }
 
     void AddCard() // 카드 Instantiate
@@ -144,6 +148,9 @@ public class CardManager : MonoBehaviour
 
     public void CardMouseOver(Card card)
     {
+        if (eCardState == ECardState.Nothing)
+            return;
+
         selectCard = card;
         EnlargeCard(true, card);
     }
@@ -155,15 +162,23 @@ public class CardManager : MonoBehaviour
 
     public void CardMouseDown()
     {
+        if (eCardState != ECardState.CanMouseDrag)
+            return;
+
         isMyCardDrag = true;
     }
 
     public void CardMouseUp()
     {
         isMyCardDrag = false;
+
+        if (eCardState != ECardState.CanMouseDrag)
+            return;
+        
+
     }
 
-    private void CardDrag()
+    void CardDrag() // 카드 드래그
     {
         if (!onMyCardArea)
         {
@@ -189,6 +204,18 @@ public class CardManager : MonoBehaviour
             card.MoveTransform(card.originPRS, false);
 
         card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
+    }
+
+    void SetECardState()
+    {
+        if (TurnManager.Inst.isLoading) // 로딩중일때
+            eCardState = ECardState.Nothing; // 확대, 드래그 X
+
+        else if (!TurnManager.Inst.isMyTurn) // 로딩 아닐때
+            eCardState = ECardState.CanMouseOver; // 확대 O 드래그 X
+        
+        else if (TurnManager.Inst.isMyTurn) // 내 턴일때
+            eCardState = ECardState.CanMouseDrag; // 확대, 드래그 O
     }
 
     #endregion

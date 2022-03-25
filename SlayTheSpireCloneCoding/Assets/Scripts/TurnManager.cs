@@ -67,6 +67,11 @@ public class TurnManager : MonoBehaviour
             OnAddCard?.Invoke();
             yield return delay07;
         }
+        else
+        {
+            GameManager.Inst.Notificaiton("적의 턴");
+            yield return delay07;
+        }
 
         isLoading = false;
     }
