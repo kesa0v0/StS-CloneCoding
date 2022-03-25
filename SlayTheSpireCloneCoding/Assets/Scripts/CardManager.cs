@@ -10,6 +10,9 @@ public class CardManager : MonoBehaviour
     [SerializeField] CardSO cardSO;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] List<Card> handCard;
+    [SerializeField] Transform cardSpawnPoint;
+    [SerializeField] Transform handCardLeft;
+    [SerializeField] Transform handCardRight;
 
     List<CardData> cardDeck;
 
@@ -56,13 +59,14 @@ public class CardManager : MonoBehaviour
 
     void AddCard() // 카드 Instantiate
     {
-        var cardObject = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
+        var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI);
         var card = cardObject.GetComponent<Card>();
         card.Setup(PopItem());
 
         handCard.Add(card);
 
         SetOriginOrder();
+        CardAlignment();
     }
 
     void SetOriginOrder() // 카드 오더 정하는 것
@@ -75,4 +79,52 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    void CardAlignment() // 카드 정렬
+    {
+        List<PRS> originCardPRSs = new List<PRS>();
+        originCardPRSs = RoundAlignment(handCardLeft, handCardRight, handCard.Count, 0.5f, Vector3.one * 1.9f);
+
+        var targetCards = handCard;
+        for (int i = 0; i < targetCards.Count; i++)
+        {
+            var targetCard = targetCards[i];
+
+            targetCard.originPRS = originCardPRSs[i];
+            targetCard.MoveTransform(targetCard.originPRS, true, 0.3f);
+        }
+    }
+
+    List<PRS> RoundAlignment(Transform leftTr, Transform rightTr, int objCount, float height, Vector3 scale) // 손패 동그랗게 만들기
+    {
+        float[] objLerps = new float[objCount]; // 0~1에서 자기 포지션 어딘지
+        List<PRS> results = new List<PRS>(objCount); // objCount만큼 크기제한
+
+        switch (objCount)
+        {
+            case 1: objLerps = new float[] { 0.5f }; break; // 손패 1개일때
+            case 2: objLerps = new float[] { 0.27f, 0.73f }; break; // 손패 2개일 때
+            case 3: objLerps = new float[] { 0.1f, 0.5f, 0.9f }; break; // 손패 3개일 때
+            default:
+                float interval = 1f / (objCount - 1);  // 4개 이상일 때
+                for (int i = 0; i < objCount; i++)
+                    objLerps[i] = interval * i;
+                break;
+        }
+
+        for (int i = 0; i < objCount; i++)
+        {
+            var targetPos = Vector3.Lerp(leftTr.position, rightTr.position, objLerps[i]); // objLerp에 따라 lefttr ~ righttr사이 위치값 정해줌
+            var targetRot = Utils.QI;
+            if (objCount >= 4) // 4개 이상부터는 회전 적용
+            {
+                float curve = Mathf.Sqrt(Mathf.Pow(height, 2) - Mathf.Pow(objLerps[i] - 0.5f, 2));  // 원의 방정식 이용. height == radius
+                curve = height >= 0 ? curve : -curve;
+                targetPos.y += curve;
+                targetRot = Quaternion.Slerp(leftTr.rotation, rightTr.rotation, objLerps[i]);
+            }
+            results.Add(new PRS(targetPos, targetRot, scale));
+        }
+
+        return results;
+    }
 }
