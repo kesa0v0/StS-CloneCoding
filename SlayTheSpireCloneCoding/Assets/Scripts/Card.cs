@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class Card : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class Card : MonoBehaviour
 
     public CardData cardData;
     bool isfront;
+    public PRS originPRS;
 
-    public void Setup(CardData cardData, bool isfront=true)
+    public void Setup(CardData cardData, bool isfront = true)
     {
         this.cardData = cardData;
         this.isfront = isfront;
@@ -31,6 +33,22 @@ public class Card : MonoBehaviour
             card.sprite = cardBack;
             nameTMP.text = "";
             energyTMP.text = "";
+        }
+    }
+
+    public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
+    {
+        if (useDotween)
+        {
+            transform.DOMove(prs.pos, dotweenTime);
+            transform.DORotateQuaternion(prs.rot, dotweenTime);
+            transform.DOScale(prs.scale, dotweenTime);
+        }
+        else
+        {
+            transform.position = prs.pos;
+            transform.rotation = prs.rot;
+            transform.localScale = prs.scale;
         }
     }
 }
