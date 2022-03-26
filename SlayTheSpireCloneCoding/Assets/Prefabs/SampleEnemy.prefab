@@ -498,14 +498,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d91f4e51368484a8ff0e475da152b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Base: {fileID: 1497716043152919609}
-  Character: {fileID: 1497716042828580719}
-  HealthTMP: {fileID: 1497716042866342379}
-  SanityTMP: {fileID: 1814058807533761148}
-  NameTMP: {fileID: 1497716043554208362}
-  IntendTMP: {fileID: 1497716043260732826}
+  entityBase: {fileID: 1497716043152919609}
+  character: {fileID: 1497716042828580719}
+  healthTMP: {fileID: 1497716042866342379}
+  sanityTMP: {fileID: 1814058807533761148}
+  nameTMP: {fileID: 1497716043554208362}
   health: 0
   sanity: 0
+  isUseSanity: 0
+  IntendTMP: {fileID: 1497716043260732826}
 --- !u!1 &1497716043260732828
 GameObject:
   m_ObjectHideFlags: 0
