@@ -16,9 +16,8 @@ public class Enemy : CharacterEntity
             health = enemyData.health,
             isUseSanity = enemyData.isUseSanity,
             sanity = enemyData.sanity
-        });
+        }); // override 왜 없지? 파이썬에선 있었는데 ㄹㅇㅋㅋ
 
-        
         print("");
     }
 }
