@@ -70,6 +70,7 @@ public class CardManager : MonoBehaviour
     {
         // if (isMyTurn)
             // availableEnengy = max; //TODO: 에너지 꽉 채우기
+        
     }
 
     void Update()
