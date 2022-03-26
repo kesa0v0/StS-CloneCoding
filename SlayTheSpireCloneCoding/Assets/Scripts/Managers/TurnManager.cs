@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
 
     public static Action OnAddCard; // 카드추가 이벤트
-
+    public static event Action<bool> OnTurnStarted;
 
     void GameSetup()
     {
@@ -65,15 +65,14 @@ public class TurnManager : MonoBehaviour
             GameManager.Inst.Notificaiton("나의 턴");
             yield return delay07;
             OnAddCard?.Invoke();
-            yield return delay07;
         }
         else
         {
             GameManager.Inst.Notificaiton("적의 턴");
-            yield return delay07;
         }
-
+        yield return delay07;
         isLoading = false;
+        OnTurnStarted?.Invoke(isMyTurn);
     }
 
     public void EndTurn()

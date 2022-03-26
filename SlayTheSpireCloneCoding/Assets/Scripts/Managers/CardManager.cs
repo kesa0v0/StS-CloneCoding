@@ -57,11 +57,19 @@ public class CardManager : MonoBehaviour
     {
         SetupCardDeck();
         TurnManager.OnAddCard += AddCard; // 카드추가 이벤트 반응 추가
+        TurnManager.OnTurnStarted += OnTurnStarted; // 턴 시작시 이벤트 반응 추가
     }
 
     void OnDestroy()
     {
         TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
+        TurnManager.OnTurnStarted -= OnTurnStarted; // 턴 시작시 이벤트 반응 제거
+    }
+
+    void OnTurnStarted(bool isMyTurn)
+    {
+        // if (isMyTurn)
+            // availableEnengy = max; //TODO: 에너지 꽉 채우기
     }
 
     void Update()
