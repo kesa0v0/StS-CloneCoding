@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using Random = UnityEngine.Random;
 
 public class CardManager : MonoBehaviour
@@ -9,15 +10,15 @@ public class CardManager : MonoBehaviour
     public static CardManager Inst { get; private set; }
     void Awake() => Inst = this;
 
-    [SerializeField] CardSO cardSO;
-    [SerializeField] GameObject cardPrefab;
-    [SerializeField] List<Card> handCard;
-    [SerializeField] Transform cardSpawnPoint;
+    [SerializeField] CardSO cardSO; // 카드 리스트
+    [SerializeField] GameObject cardPrefab; // 카드 프리팹
+    [SerializeField] List<Card> handCard; // 손에 들고있는 카드()들 리스트
+    [SerializeField] Transform cardSpawnPoint; //
     [SerializeField] Transform handCardLeft;
     [SerializeField] Transform handCardRight;
     [SerializeField] ECardState eCardState;
 
-    List<CardData> cardDeck;
+    List<CardData> cardDeck; // itemBuffer
     Card selectCard;
     bool isMyCardDrag;
     bool onMyCardArea;
@@ -143,7 +144,6 @@ public class CardManager : MonoBehaviour
         return results;
     }
 
-
     #region MyCard
 
     public void CardMouseOver(Card card)
@@ -216,6 +216,21 @@ public class CardManager : MonoBehaviour
         
         else if (TurnManager.Inst.isMyTurn) // 내 턴일때
             eCardState = ECardState.CanMouseDrag; // 확대, 드래그 O
+    }
+
+    public void DestroyCard(Card card)
+    {
+        handCard.Remove(card);
+        card.transform.DOKill();
+        DestroyImmediate(card.gameObject);
+        selectCard = null;
+        CardAlignment();
+    }
+
+    //TODO: remove this debug
+    public Card getSelectCard()
+    {
+        return selectCard;
     }
 
     #endregion

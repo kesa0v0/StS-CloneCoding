@@ -474,7 +474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497716043152919609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 9.759621, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1497716042828580704}
@@ -498,6 +498,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d91f4e51368484a8ff0e475da152b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chEntityData:
+    name: 
+    sprite: {fileID: 0}
+    health: 0
+    isUseSanity: 0
+    sanity: 0
   entityBase: {fileID: 1497716043152919609}
   character: {fileID: 1497716042828580719}
   healthTMP: {fileID: 1497716042866342379}
@@ -506,6 +512,7 @@ MonoBehaviour:
   health: 0
   sanity: 0
   isUseSanity: 0
+  originPos: {x: 0, y: 0, z: 0}
   IntendTMP: {fileID: 1497716043260732826}
 --- !u!1 &1497716043260732828
 GameObject:

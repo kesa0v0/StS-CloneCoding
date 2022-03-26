@@ -24,13 +24,27 @@ public class GameManager : MonoBehaviour
 #endif
     }
 
+
+    [SerializeField] EntitySO enemySO;
+
     void InputCheatKey() // 디버그용 치트
     {
         if (Input.GetKeyDown(KeyCode.Keypad1))
             TurnManager.OnAddCard?.Invoke();
-        
+
         if (Input.GetKeyDown(KeyCode.Keypad2))
             TurnManager.Inst.EndTurn();
+
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            if (CardManager.Inst.getSelectCard())
+                CardManager.Inst.DestroyCard(CardManager.Inst.getSelectCard());
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            EnemyManager.Inst.SpawnEnemy(enemySO.enemyDatas[0], Utils.MousePos);
+        }
     }
 
     public void StartGame()

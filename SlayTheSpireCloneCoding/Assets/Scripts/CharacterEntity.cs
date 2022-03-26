@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class CharacterEntity : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class CharacterEntity : MonoBehaviour
     public int health;
     public int sanity;
     public bool isUseSanity;
+    public Vector3 originPos;
     
     public void Setup(CharacterEntityData entityData)
     {
@@ -27,5 +29,16 @@ public class CharacterEntity : MonoBehaviour
         nameTMP.text = this.chEntityData.name;
         healthTMP.text = health.ToString();
         sanityTMP.text = sanity.ToString();
+    }
+    public void MoveTransform(Vector3 pos, bool useDotween, float dotweenTime = 0)
+    {
+        if (useDotween)
+        {
+            transform.DOMove(pos, dotweenTime);
+        }
+        else
+        {
+            transform.position = pos;
+        }
     }
 }
