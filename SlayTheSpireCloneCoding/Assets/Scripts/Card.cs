@@ -71,4 +71,8 @@ public class Card : MonoBehaviour
     {
         CardManager.Inst.CardMouseUp();
     }
+
+    private void OnMouseDrag() {
+        CardManager.Inst.CardMouseDrag();
+    }
 }

@@ -20,9 +20,12 @@ public class CardManager : MonoBehaviour
 
     List<CardData> cardDeck; // itemBuffer
     Card selectCard;
+    CharacterEntity targetEntity;
     bool isMyCardDrag;
     bool onMyCardArea;
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
+
+
 
     public CardData PopItem() // 카드뽑기
     {
@@ -104,6 +107,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    #region CardAlign
     void CardAlignment() // 카드 정렬
     {
         List<PRS> originCardPRSs = new List<PRS>();
@@ -153,7 +157,8 @@ public class CardManager : MonoBehaviour
         return results;
     }
 
-    #region MyCard
+    #endregion
+
 
     public void CardMouseOver(Card card)
     {
@@ -183,8 +188,34 @@ public class CardManager : MonoBehaviour
 
         if (eCardState != ECardState.CanMouseDrag)
             return;
-        
+    }
 
+    public void CardMouseDrag()
+    {
+        if (!(TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading) || selectCard == null)
+            return;
+        
+        int layer = LayerMask.NameToLayer("TargetEntities");
+        // Debug.DrawRay(Utils.MousePos, Vector3.forward, new Color(0,1,0), layer);
+        // RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
+        // var hit = Array.Exists(hits, x => x.collider.gameObject.layer == layer)
+        // print(hit.name);
+        // enemy 타겟 엔티티 찾기
+        bool existTarget = false;
+        foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward, Mathf.Infinity, layer))
+        {
+            print(hit.collider.name);
+            // CharacterEntity cEntity = hit.collider?.GetComponent<Enemy>();
+            // print(cEntity.name);
+            // if (cEntity != null)
+            // {
+            //     targetEntity = cEntity;
+            //     existTarget = true;
+            //     break;
+            // }
+        }
+        if (!existTarget)
+            targetEntity = null;
     }
 
     void CardDrag() // 카드 드래그
@@ -210,7 +241,7 @@ public class CardManager : MonoBehaviour
             card.MoveTransform(new PRS(enlargePos, Utils.QI, Vector3.one * 3.5f), false);
         }
         else
-            card.MoveTransform(card.originPRS, false);
+            card.MoveTransform(card.originPRS, true, 0.3f);
 
         card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
     }
@@ -242,5 +273,4 @@ public class CardManager : MonoBehaviour
         return selectCard;
     }
 
-    #endregion
 }

@@ -41,4 +41,5 @@ public class CharacterEntity : MonoBehaviour
             transform.position = pos;
         }
     }
+
 }

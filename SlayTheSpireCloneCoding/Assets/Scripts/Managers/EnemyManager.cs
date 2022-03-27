@@ -17,7 +17,6 @@ public class EnemyManager : MonoBehaviour
 	{
 		float targetY = 5f;
         float targetXRange = Mathf.Abs(enemyLocationLeft.position.x - enemyLocationRight.position.x);
-        print(targetXRange);
 
 		for (int i = 0; i < enemyList.Count; i++)
 		{
