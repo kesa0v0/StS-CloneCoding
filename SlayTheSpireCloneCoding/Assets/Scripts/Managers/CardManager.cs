@@ -194,28 +194,25 @@ public class CardManager : MonoBehaviour
     {
         if (!(TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading) || selectCard == null)
             return;
-        
-        int layer = LayerMask.NameToLayer("TargetEntities");
-        // Debug.DrawRay(Utils.MousePos, Vector3.forward, new Color(0,1,0), layer);
-        // RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
-        // var hit = Array.Exists(hits, x => x.collider.gameObject.layer == layer)
-        // print(hit.name);
-        // enemy 타겟 엔티티 찾기
+
         bool existTarget = false;
-        foreach (var hit in Physics2D.RaycastAll(Utils.MousePos, Vector3.forward, Mathf.Infinity, layer))
+        
+        RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward, Mathf.Infinity);
+        foreach (var hit in hits)
         {
-            print(hit.collider.name);
-            // CharacterEntity cEntity = hit.collider?.GetComponent<Enemy>();
-            // print(cEntity.name);
-            // if (cEntity != null)
-            // {
-            //     targetEntity = cEntity;
-            //     existTarget = true;
-            //     break;
-            // }
+            if (hit.collider.gameObject.layer == 7)
+            {
+                CharacterEntity cEntity = hit.collider?.gameObject.transform.parent.GetComponent<Enemy>();
+                if (cEntity != null)
+                {
+                    targetEntity = cEntity;
+                    existTarget = true;
+                    break;
+                }
+            }
         }
         if (!existTarget)
-            targetEntity = null;
+        targetEntity = null;
     }
 
     void CardDrag() // 카드 드래그

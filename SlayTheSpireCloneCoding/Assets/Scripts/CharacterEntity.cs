@@ -20,6 +20,7 @@ public class CharacterEntity : MonoBehaviour
     
     public void Setup(CharacterEntityData entityData)
     {
+        name = entityData.name;
         health = entityData.health;
         sanity = entityData.sanity;
         isUseSanity = entityData.isUseSanity;
