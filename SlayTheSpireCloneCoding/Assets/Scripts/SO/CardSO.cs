@@ -9,10 +9,14 @@ public class CardData
     public int energy;
     public Sprite sprite;
 
-    public int[] Effects; // TODO: int -> effects
+    public List<Effect> effects = new List<Effect>(); // Effect, amount, target
 
     public void ApplyEffect(CharacterEntity target){
-        Debug.Log("EFFECT TEST");
+        foreach (Effect effect in effects)
+        {
+            Debug.Log(effect.CardDescription());
+            effect?.ApplyEffect();
+        }
     }
 }
 
