@@ -16,11 +16,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform cardSpawnPoint; //
     [SerializeField] Transform handCardLeft;
     [SerializeField] Transform handCardRight;
+    [SerializeField] GameObject TargetIndicator;
     [SerializeField] ECardState eCardState;
 
     List<CardData> cardDeck; // itemBuffer
     Card selectCard;
     CharacterEntity targetEntity;
+    bool ExistTargetIndicatorEntity => targetEntity != null;
     bool isMyCardDrag;
     bool onMyCardArea;
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
@@ -81,9 +83,11 @@ public class CardManager : MonoBehaviour
         if (isMyCardDrag)
             CardDrag();
 
-        DetectCardArea();
         SetECardState();
+        DetectCardArea();
+        ShowTargetIndicator(ExistTargetIndicatorEntity);
     }
+
 
     void AddCard() // 카드 Instantiate
     {
@@ -188,9 +192,15 @@ public class CardManager : MonoBehaviour
 
         if (eCardState != ECardState.CanMouseDrag)
             return;
+        
+        if (selectCard && targetEntity)
+            UseCardEffect(selectCard, targetEntity);
+        
+        selectCard = null;
+        targetEntity = null;
     }
 
-    public void CardMouseDrag()
+    public void CardMouseDrag() //마우스 드래그 TODO: 밑에 엔티티 확인하는 거 따로 빼서 옮기기
     {
         if (!(TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading) || selectCard == null)
             return;
@@ -243,7 +253,7 @@ public class CardManager : MonoBehaviour
         card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
     }
 
-    void SetECardState()
+    void SetECardState() //카드 움직임 가능성 상태머신
     {
         if (TurnManager.Inst.isLoading) // 로딩중일때
             eCardState = ECardState.Nothing; // 확대, 드래그 X
@@ -268,6 +278,19 @@ public class CardManager : MonoBehaviour
     public Card getSelectCard()
     {
         return selectCard;
+    }
+
+    void ShowTargetIndicator(bool isShow)
+    {
+        TargetIndicator.SetActive(isShow);
+        if (ExistTargetIndicatorEntity)
+            TargetIndicator.transform.position = targetEntity.transform.position;
+    }
+
+    void UseCardEffect(Card card, CharacterEntity target)
+    {
+        card.cardData.ApplyEffect(target);
+        // TODO: 죽음 처리
     }
 
 }

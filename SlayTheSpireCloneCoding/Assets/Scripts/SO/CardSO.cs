@@ -11,7 +11,7 @@ public class CardData
 
     public int[] Effects; // TODO: int -> effects
 
-    public void ApplyEffeect(){
+    public void ApplyEffect(CharacterEntity target){
         Debug.Log("EFFECT TEST");
     }
 }
