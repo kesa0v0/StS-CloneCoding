@@ -1,21 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[System.Serializable]
+
+[Serializable]
+public struct EffectVariables
+{
+    public Effect effect;
+
+    [Range(0, 2)]
+    public int ReinforcedLevel;
+}
+
+[Serializable]
 public class CardData
 {
     public string name;
     public int energy;
     public Sprite sprite;
 
-    public List<Effect> effects = new List<Effect>(); // Effect, amount, target
+    public List<EffectVariables> effects = new List<EffectVariables>(); // Effect, amount, target
 
     public void ApplyEffect(CharacterEntity target){
-        foreach (Effect effect in effects)
+        foreach (EffectVariables effectVar in effects)
         {
-            Debug.Log(effect.CardDescription());
-            effect?.ApplyEffect();
+            effectVar.effect.target = target;
+            effectVar.effect.ReinforcedLevel = effectVar.ReinforcedLevel;
+
+            Debug.Log(effectVar.effect.CardDescription());
+            effectVar.effect?.ApplyEffect();
         }
     }
 }
