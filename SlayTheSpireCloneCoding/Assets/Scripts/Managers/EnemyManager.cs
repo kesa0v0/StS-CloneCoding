@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     void Awake() => Inst = this;
 
     [SerializeField] GameObject enemyPrefab;
+    [SerializeField] Transform enemySpawnLocation;
     [SerializeField] Transform enemyLocation;
     [SerializeField] Transform enemyLocationLeft;
     [SerializeField] Transform enemyLocationRight;
@@ -30,9 +31,9 @@ public class EnemyManager : MonoBehaviour
 	}
 
 
-    public void SpawnEnemy(EnemyData enemyData, Vector3 spawnPos, int insertOrder=-1) // 적 스폰 
+    public void SpawnEnemy(EnemyData enemyData, int insertOrder=-1) // 적 스폰 
     { // insertOrder 오른쪽부터 0123
-        var enemyObject = Instantiate(enemyPrefab, spawnPos, Utils.QI);
+        var enemyObject = Instantiate(enemyPrefab, enemySpawnLocation.position, Utils.QI);
         var enemyComponent = enemyObject.GetComponent<Enemy>();
 
         enemyList.Add(enemyComponent); // TODO: 적 한도 만들기? 아님 적절히 위치 조정

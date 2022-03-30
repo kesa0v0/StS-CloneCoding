@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            EnemyManager.Inst.SpawnEnemy(enemySO.enemyDatas[0], Utils.MousePos);
+            EnemyManager.Inst.SpawnEnemy(enemySO.enemyDatas[0]);
         }
     }
 
