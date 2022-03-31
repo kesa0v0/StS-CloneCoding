@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] Transform enemyLocation;
     [SerializeField] Transform enemyLocationLeft;
     [SerializeField] Transform enemyLocationRight;
-    [SerializeField] List<Enemy> enemyList;
+    [SerializeField] List<CharacterEntity> enemyList;
 
 	void EnemyAlignment() // 적 정렬
 	{
@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
     public void SpawnEnemy(EnemyData enemyData, int insertOrder=-1) // 적 스폰 
     { // insertOrder 오른쪽부터 0123
         var enemyObject = Instantiate(enemyPrefab, enemySpawnLocation.position, Utils.QI);
-        var enemyComponent = enemyObject.GetComponent<Enemy>();
+        var enemyComponent = enemyObject.GetComponent<CharacterEntity>();
 
         enemyList.Add(enemyComponent); // TODO: 적 한도 만들기? 아님 적절히 위치 조정
         enemyComponent.Setup(enemyData);

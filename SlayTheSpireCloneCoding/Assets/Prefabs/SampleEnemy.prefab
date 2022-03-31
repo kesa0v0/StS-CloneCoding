@@ -458,6 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1497716043152919608}
+  - component: {fileID: -1132753933894977517}
   - component: {fileID: 1497716043152919751}
   m_Layer: 7
   m_Name: SampleEnemy
@@ -486,7 +487,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1497716043152919751
+--- !u!114 &-1132753933894977517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,7 +496,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1497716043152919609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55d91f4e51368484a8ff0e475da152b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 31ece789659fdcc48983e617f4b9db33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chEntityData:
@@ -509,10 +510,23 @@ MonoBehaviour:
   healthTMP: {fileID: 1497716042866342379}
   sanityTMP: {fileID: 1814058807533761148}
   nameTMP: {fileID: 1497716043554208362}
-  health: 0
-  sanity: 0
+  health: 20
+  sanity: 20
   isUseSanity: 0
   originPos: {x: 0, y: 0, z: 0}
+--- !u!114 &1497716043152919751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497716043152919609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d91f4e51368484a8ff0e475da152b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Base: {fileID: 0}
   IntendTMP: {fileID: 1497716043260732826}
 --- !u!1 &1497716043260732828
 GameObject:

@@ -221,7 +221,7 @@ public class CardManager : MonoBehaviour
         {
             if (hit.collider.gameObject.layer == 7)
             {
-                CharacterEntity cEntity = hit.collider?.gameObject.transform.parent.GetComponent<Enemy>();
+                CharacterEntity cEntity = hit.collider?.gameObject.transform.parent.GetComponent<CharacterEntity>();
                 if (cEntity != null)
                 {
                     targetEntity = cEntity;
