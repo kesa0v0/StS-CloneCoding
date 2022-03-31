@@ -88,7 +88,6 @@ public class CardManager : MonoBehaviour
         ShowTargetIndicator(ExistTargetIndicatorEntity);
     }
 
-
     void AddCard() // 카드 Instantiate
     {
         var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI);
@@ -168,14 +167,18 @@ public class CardManager : MonoBehaviour
     {
         if (eCardState == ECardState.Nothing)
             return;
-
-        selectCard = card;
-        EnlargeCard(true, card);
+        
+        if (!isMyCardDrag)
+        {
+            selectCard = card;
+            EnlargeCard(true, card);
+        }
     }
 
     public void CardMouseExit(Card card)
     {
-        EnlargeCard(false, card);
+        if (!isMyCardDrag)
+            EnlargeCard(false, card);
     }
 
     public void CardMouseDown()
@@ -189,6 +192,7 @@ public class CardManager : MonoBehaviour
     public void CardMouseUp()
     {
         isMyCardDrag = false;
+        EnlargeCard(false, selectCard);
 
         if (eCardState != ECardState.CanMouseDrag)
             return;
@@ -232,17 +236,25 @@ public class CardManager : MonoBehaviour
 
     void CardDrag() // 카드 드래그
     {
-        if (!onMyCardArea)
+        bool nowOnCardArea = DetectCardArea();
+
+        if (onMyCardArea != nowOnCardArea)
         {
-            selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
+            // selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
+            Vector3 DragPos = new Vector3((handCardLeft.position.x + handCardRight.position.x)/2, -9f, -10f);
+
+            selectCard.MoveTransform(new PRS(DragPos, Utils.QI, selectCard.originPRS.scale * 1.5f), true, 0.5f);
+            
         }
+
+        onMyCardArea = nowOnCardArea;
     }
 
-    void DetectCardArea() // 마우스가 카드 영역에 있는지 확인
+    bool DetectCardArea() // 마우스가 카드 영역에 있는지 확인
     {
         RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward);
         int layer = LayerMask.NameToLayer("MyCardArea");
-        onMyCardArea = Array.Exists(hits, x => x.collider.gameObject.layer == layer);
+        return Array.Exists(hits, x => x.collider.gameObject.layer == layer);
     }
 
     void EnlargeCard(bool isEnlarge, Card card) // 카드 확대

@@ -21,8 +21,6 @@ public class CardData
     public Sprite sprite;
 
 
-    
-
     public List<EffectVariables> effects = new List<EffectVariables>();
 
 
