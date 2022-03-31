@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    [SerializeField] EntitySO enemySO;
+    [SerializeField] EnemySO enemySO;
 
     void InputCheatKey() // 디버그용 치트
     {

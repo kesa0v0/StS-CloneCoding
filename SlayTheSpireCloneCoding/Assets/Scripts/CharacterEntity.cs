@@ -10,27 +10,32 @@ public class CharacterEntity : MonoBehaviour
     [SerializeField] GameObject entityBase;
     [SerializeField] SpriteRenderer character;
     [SerializeField] TMP_Text healthTMP;
+    [SerializeField] TMP_Text defenseTMP;
     [SerializeField] TMP_Text sanityTMP;
     [SerializeField] TMP_Text nameTMP;
 
+    public int maxHealth;
     public int health;
-    public int sanity;
+    public int defense;
     public bool isUseSanity;
+    public int maxSanity;
+    public int sanity;
     public Vector3 originPos;
-    
+
     public void Setup(CharacterEntityData entityData)
     {
         name = entityData.name;
-        health = entityData.health;
-        sanity = entityData.sanity;
+        maxHealth = entityData.maxHealth;
+        health = entityData.maxHealth;
+        defense = entityData.initDefense;
+        maxSanity = entityData.maxSanity;
+        sanity = entityData.maxSanity;
         isUseSanity = entityData.isUseSanity;
 
         this.chEntityData = entityData;
-        character.sprite = this.chEntityData.sprite;
-        nameTMP.text = this.chEntityData.name;
-        healthTMP.text = health.ToString();
-        sanityTMP.text = sanity.ToString();
+        UpdateTMP();
     }
+
     public void MoveTransform(Vector3 pos, bool useDotween, float dotweenTime = 0)
     {
         if (useDotween)
@@ -43,4 +48,15 @@ public class CharacterEntity : MonoBehaviour
         }
     }
 
+    public void UpdateTMP()
+    {
+        if (nameTMP != null)
+            nameTMP.text = this.chEntityData.name;
+        
+        character.sprite = this.chEntityData.sprite;
+        healthTMP.text = $"{health.ToString()} / {maxHealth.ToString()}";
+        defenseTMP.text = defense.ToString();
+        sanityTMP.text = $"{sanity.ToString()} / {maxSanity.ToString()}";
+
+    }
 }

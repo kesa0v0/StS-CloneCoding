@@ -2078,17 +2078,19 @@ MonoBehaviour:
   chEntityData:
     name: 
     sprite: {fileID: 0}
-    health: 0
+    maxHealth: 0
     isUseSanity: 0
-    sanity: 0
+    maxSanity: 0
   entityBase: {fileID: 1886701419}
   character: {fileID: 1150018858}
   healthTMP: {fileID: 1727476621}
   sanityTMP: {fileID: 1807260558}
   nameTMP: {fileID: 259043616}
+  maxHealth: 80
   health: 80
-  sanity: 80
   isUseSanity: 1
+  maxSanity: 80
+  sanity: 80
   originPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2107375215
 GameObject:

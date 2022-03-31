@@ -502,17 +502,20 @@ MonoBehaviour:
   chEntityData:
     name: 
     sprite: {fileID: 0}
-    health: 0
+    maxHealth: 0
     isUseSanity: 0
-    sanity: 0
+    maxSanity: 0
   entityBase: {fileID: 1497716043152919609}
   character: {fileID: 1497716042828580719}
   healthTMP: {fileID: 1497716042866342379}
+  defenseTMP: {fileID: 5383304287394422113}
   sanityTMP: {fileID: 1814058807533761148}
   nameTMP: {fileID: 1497716043554208362}
+  maxHealth: 0
   health: 20
-  sanity: 20
   isUseSanity: 0
+  maxSanity: 0
+  sanity: 20
   originPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1497716043152919751
 MonoBehaviour:
