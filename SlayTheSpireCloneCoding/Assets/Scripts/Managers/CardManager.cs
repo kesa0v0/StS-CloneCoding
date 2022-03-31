@@ -204,7 +204,7 @@ public class CardManager : MonoBehaviour
         targetEntity = null;
     }
 
-    public void CardMouseDrag() //마우스 드래그 TODO: 밑에 엔티티 확인하는 거 따로 빼서 옮기기
+    public void CardMouseDrag() //마우스 드래그 
     {
         if (!(TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading) || selectCard == null)
             return;
