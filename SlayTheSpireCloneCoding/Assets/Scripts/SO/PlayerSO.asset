@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1211530355c8ef7478d9225cb13e96a6, type: 3}
   m_Name: PlayerSO
   m_EditorClassIdentifier: 
+  playerDatas:
+  - name: Player1
+    sprite: {fileID: 21300000, guid: 4bd04acf2f0f8a345abfee92fdb88006, type: 3}
+    maxHealth: 80
+    initDefense: 0
+    isUseSanity: 1
+    maxSanity: 80

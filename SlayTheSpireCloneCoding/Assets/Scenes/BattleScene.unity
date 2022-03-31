@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notificationPanel: {fileID: 1453700552}
-  enemySO: {fileID: 11400000, guid: 2600aa5c4fb87364d921781d51c46afd, type: 2}
+  enemySO: {fileID: 11400000, guid: 473e8bde1db83f948af79f67f2217c6f, type: 2}
 --- !u!4 &766229835
 Transform:
   m_ObjectHideFlags: 0
@@ -2037,6 +2037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1886701420}
+  - component: {fileID: 1886701422}
   - component: {fileID: 1886701421}
   m_Layer: 7
   m_Name: MyPlayer
@@ -2079,19 +2080,35 @@ MonoBehaviour:
     name: 
     sprite: {fileID: 0}
     maxHealth: 0
+    initDefense: 0
     isUseSanity: 0
     maxSanity: 0
   entityBase: {fileID: 1886701419}
   character: {fileID: 1150018858}
   healthTMP: {fileID: 1727476621}
+  defenseTMP: {fileID: 259043616}
   sanityTMP: {fileID: 1807260558}
-  nameTMP: {fileID: 259043616}
+  nameTMP: {fileID: 0}
   maxHealth: 80
   health: 80
+  defense: 0
   isUseSanity: 1
   maxSanity: 80
   sanity: 80
   originPos: {x: 0, y: 0, z: 0}
+--- !u!114 &1886701422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886701419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f29f16bf6b53e4fb21361d157cc6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSO: {fileID: 11400000, guid: db6d9c90bf0251a4896ef42ed4d1fdc6, type: 2}
 --- !u!1 &2107375215
 GameObject:
   m_ObjectHideFlags: 0
