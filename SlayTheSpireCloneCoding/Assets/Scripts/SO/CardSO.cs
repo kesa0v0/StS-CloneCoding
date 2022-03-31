@@ -20,7 +20,11 @@ public class CardData
     public int energy;
     public Sprite sprite;
 
-    public List<EffectVariables> effects = new List<EffectVariables>(); // Effect, amount, target
+
+    
+
+    public List<EffectVariables> effects = new List<EffectVariables>();
+
 
     public void ApplyEffect(CharacterEntity target){
         foreach (EffectVariables effectVar in effects)

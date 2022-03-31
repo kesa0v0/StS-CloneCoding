@@ -163,7 +163,7 @@ public class CardManager : MonoBehaviour
 
     #endregion
 
-
+    #region CardMouseControl
     public void CardMouseOver(Card card)
     {
         if (eCardState == ECardState.Nothing)
@@ -205,6 +205,11 @@ public class CardManager : MonoBehaviour
         if (!(TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading) || selectCard == null)
             return;
 
+        GetTargetEntity();
+    }
+
+    void GetTargetEntity()
+    {
         bool existTarget = false;
         
         RaycastHit2D[] hits = Physics2D.RaycastAll(Utils.MousePos, Vector3.forward, Mathf.Infinity);
@@ -252,6 +257,8 @@ public class CardManager : MonoBehaviour
 
         card.GetComponent<Order>().SetMostFrontOrder(isEnlarge);
     }
+
+    #endregion
 
     void SetECardState() //카드 움직임 가능성 상태머신
     {

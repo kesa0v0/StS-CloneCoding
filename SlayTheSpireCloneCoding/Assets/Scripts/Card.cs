@@ -52,6 +52,7 @@ public class Card : MonoBehaviour
         }
     }
 
+    #region CardMouseControl
     private void OnMouseOver()
     {
         CardManager.Inst.CardMouseOver(this);
@@ -75,4 +76,6 @@ public class Card : MonoBehaviour
     private void OnMouseDrag() {
         CardManager.Inst.CardMouseDrag();
     }
+
+    #endregion
 }
