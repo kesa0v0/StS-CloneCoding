@@ -8,7 +8,7 @@ public class CharacterEntityData
     public string name;
     public Sprite sprite;
     public int maxHealth;
-    public int initDefense;
+    public int initShield;
     public bool isUseSanity;
     public int maxSanity;
 }

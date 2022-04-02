@@ -10,13 +10,13 @@ public class CharacterEntity : MonoBehaviour
     [SerializeField] GameObject entityBase;
     [SerializeField] SpriteRenderer character;
     [SerializeField] TMP_Text healthTMP;
-    [SerializeField] TMP_Text defenseTMP;
+    [SerializeField] TMP_Text shieldTMP;
     [SerializeField] TMP_Text sanityTMP;
     [SerializeField] TMP_Text nameTMP;
 
     public int maxHealth;
     public int health;
-    public int defense;
+    public int shield;
     public bool isUseSanity;
     public int maxSanity;
     public int sanity;
@@ -27,7 +27,7 @@ public class CharacterEntity : MonoBehaviour
         name = entityData.name;
         maxHealth = entityData.maxHealth;
         health = entityData.maxHealth;
-        defense = entityData.initDefense;
+        shield = entityData.initShield;
         maxSanity = entityData.maxSanity;
         sanity = entityData.maxSanity;
         isUseSanity = entityData.isUseSanity;
@@ -55,7 +55,7 @@ public class CharacterEntity : MonoBehaviour
         
         character.sprite = this.chEntityData.sprite;
         healthTMP.text = $"{health.ToString()} / {maxHealth.ToString()}";
-        defenseTMP.text = defense.ToString();
+        shieldTMP.text = shield.ToString();
         sanityTMP.text = $"{sanity.ToString()} / {maxSanity.ToString()}";
 
     }

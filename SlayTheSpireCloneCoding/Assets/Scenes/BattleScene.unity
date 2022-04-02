@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 259043617}
   - component: {fileID: 259043616}
   m_Layer: 7
-  m_Name: DefenseTMP
+  m_Name: ShieldTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eTurnMode: 1
   fastMode: 1
-  startCardCount: 4
+  startCardCount: 5
   isMyTurn: 0
   isLoading: 0
 --- !u!4 &465324427
@@ -2080,18 +2080,18 @@ MonoBehaviour:
     name: 
     sprite: {fileID: 0}
     maxHealth: 0
-    initDefense: 0
+    initShield: 0
     isUseSanity: 0
     maxSanity: 0
   entityBase: {fileID: 1886701419}
   character: {fileID: 1150018858}
   healthTMP: {fileID: 1727476621}
-  defenseTMP: {fileID: 259043616}
+  shieldTMP: {fileID: 259043616}
   sanityTMP: {fileID: 1807260558}
   nameTMP: {fileID: 0}
   maxHealth: 80
   health: 80
-  defense: 0
+  shield: 0
   isUseSanity: 1
   maxSanity: 80
   sanity: 80

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1759225077211961659}
   - component: {fileID: 5383304287394422113}
   m_Layer: 7
-  m_Name: DefenseTMP
+  m_Name: ShieldTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,16 +503,18 @@ MonoBehaviour:
     name: 
     sprite: {fileID: 0}
     maxHealth: 0
+    initShield: 0
     isUseSanity: 0
     maxSanity: 0
   entityBase: {fileID: 1497716043152919609}
   character: {fileID: 1497716042828580719}
   healthTMP: {fileID: 1497716042866342379}
-  defenseTMP: {fileID: 5383304287394422113}
+  shieldTMP: {fileID: 5383304287394422113}
   sanityTMP: {fileID: 1814058807533761148}
   nameTMP: {fileID: 1497716043554208362}
   maxHealth: 0
   health: 20
+  shield: 0
   isUseSanity: 0
   maxSanity: 0
   sanity: 20
@@ -529,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d91f4e51368484a8ff0e475da152b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Base: {fileID: 0}
+  Base: {fileID: 1497716043152919609}
   IntendTMP: {fileID: 1497716043260732826}
 --- !u!1 &1497716043260732828
 GameObject:
