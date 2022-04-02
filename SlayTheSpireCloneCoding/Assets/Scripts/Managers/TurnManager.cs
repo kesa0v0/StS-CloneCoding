@@ -63,8 +63,6 @@ public class TurnManager : MonoBehaviour
         if (isMyTurn)
         {
             GameManager.Inst.Notificaiton("나의 턴");
-            yield return delay07;
-            OnAddCard?.Invoke();
         }
         else
         {
