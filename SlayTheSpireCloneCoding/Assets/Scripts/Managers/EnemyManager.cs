@@ -40,4 +40,9 @@ public class EnemyManager : MonoBehaviour
         enemyComponent.Setup(enemyData);
         EnemyAlignment();
     }
+
+    public void RemoveEnemy(CharacterEntity enemy)
+    {
+        enemyList.Remove(enemy);
+    }
 }

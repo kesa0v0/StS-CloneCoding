@@ -309,8 +309,8 @@ public class CardManager : MonoBehaviour
     void UseCardEffect(Card card, CharacterEntity target)
     {
         card.cardData.ApplyEffect(target);
-        target.GetComponent<CharacterEntity>().UpdateTMP();
-        // TODO: 죽음 처리
+        if (target != null)
+            target?.GetComponent<CharacterEntity>().UpdateTMP();
     }
 
 }

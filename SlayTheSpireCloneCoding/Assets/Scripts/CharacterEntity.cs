@@ -6,8 +6,7 @@ using DG.Tweening;
 
 public class CharacterEntity : MonoBehaviour
 {
-    [SerializeField] CharacterEntityData chEntityData;
-    [SerializeField] GameObject entityBase;
+    public GameObject entityBase;
     [SerializeField] SpriteRenderer character;
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text shieldTMP;
@@ -21,6 +20,7 @@ public class CharacterEntity : MonoBehaviour
     public int maxSanity;
     public int sanity;
     public Vector3 originPos;
+    public CharacterEntityData chEntityData;
 
     public void Setup(CharacterEntityData entityData)
     {
@@ -58,5 +58,17 @@ public class CharacterEntity : MonoBehaviour
         shieldTMP.text = shield.ToString();
         sanityTMP.text = $"{sanity.ToString()} / {maxSanity.ToString()}";
 
+    }
+
+    public void KillMyself()
+    {
+        EnemyManager.Inst.RemoveEnemy(this);
+        this.entityBase.transform.DOKill();
+        DestroyImmediate(this.entityBase);
+    }
+
+    public bool isAlive()
+    {
+        return health > 0 ? true : false;
     }
 }

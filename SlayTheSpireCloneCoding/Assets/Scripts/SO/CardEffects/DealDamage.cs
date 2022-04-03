@@ -6,14 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public class DealDamage : Effect
 {
-    int[] _ShieldPerLevel = new int[] { 5, 8 };
+    [SerializeField] int[] _DamagePerLevel = new int[] { 5, 8 };
 
     public override string CardDescription()
     {
-        return $"대상에게 { this._ShieldPerLevel[this.ReinforcedLevel] } 데미지를 가합니다"; //string.format
+        return $"대상에게 { this._DamagePerLevel[this.ReinforcedLevel] } 데미지를 가합니다"; //string.format
     }
     public override void ApplyEffect()
     {
-        target.health -= _ShieldPerLevel[ReinforcedLevel];
+        EntityManager.Inst.getDamage(target, this._DamagePerLevel[this.ReinforcedLevel]);
     }
 }
