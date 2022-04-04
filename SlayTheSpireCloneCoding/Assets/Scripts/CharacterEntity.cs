@@ -21,6 +21,7 @@ public class CharacterEntity : MonoBehaviour
     public int sanity;
     public Vector3 originPos;
     public CharacterEntityData chEntityData;
+    // public buffs ownBuffs
 
     public void Setup(CharacterEntityData entityData)
     {
