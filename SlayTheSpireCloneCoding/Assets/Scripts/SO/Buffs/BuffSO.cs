@@ -22,9 +22,3 @@ public class Buff
     }
 
 }
-
-[CreateAssetMenu(fileName ="BuffSO", menuName = "Scriptable Object/BuffSO")]
-public class BuffSO : ScriptableObject
-{
-    
-}
