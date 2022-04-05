@@ -9,9 +9,16 @@ public class Buff
     public int amount;
     public int lifespan;
 
-    public void nextTurn()
+    public void OnEndOfTurn()
     {
-
+        lifespan--;
+        
+        // effect
+        
+        if (lifespan <= 0)
+        {
+            //destroy
+        }
     }
 
 }
