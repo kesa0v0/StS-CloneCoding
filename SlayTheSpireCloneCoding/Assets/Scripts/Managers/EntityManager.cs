@@ -7,11 +7,16 @@ public class EntityManager : MonoBehaviour
 {
     public static EntityManager Inst { get; private set; }
     void Awake() => Inst = this;
+
+
+    [SerializeField] PlayerData player;
+
+
     bool CanMouseInput => TurnManager.Inst.isMyTurn && !TurnManager.Inst.isLoading;
 
     WaitForSeconds delay1 = new WaitForSeconds(1);
 
-    public void getDamage(CharacterEntity target, int amount) // 데미지 받는 함-수 (Manager로 옮길수도 있워오)
+    public void GetDamage(CharacterEntity target, int amount) // 데미지 받는 함-수 (Manager로 옮길수도 있워오)
     {
         int temp = target.shield - amount;
         if (temp > 0)
@@ -45,4 +50,8 @@ public class EntityManager : MonoBehaviour
         }
     }
     
+    public void DoPerTurnBuffs()
+    {
+        
+    }
 }

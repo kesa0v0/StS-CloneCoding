@@ -14,6 +14,6 @@ public class DealDamage : Effect
     }
     public override void ApplyEffect()
     {
-        EntityManager.Inst.getDamage(target, this._DamagePerLevel[this.ReinforcedLevel]);
+        EntityManager.Inst.GetDamage(target, this._DamagePerLevel[this.ReinforcedLevel]);
     }
 }

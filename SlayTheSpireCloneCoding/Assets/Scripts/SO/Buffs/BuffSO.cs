@@ -9,11 +9,23 @@ public class Buff
     public int amount;
     public int lifespan;
 
-    public void OnEndOfTurn()
+    #region StaticEffect
+    private void Awake() { // 스탯 버프
+        
+    }
+
+    private void OnDestroy() {
+        
+    }
+
+    #endregion
+
+    #region PerTurnEffect
+    public void OnEndOfTurn() // 턴마다 효과가 있는 버프
     {
         lifespan--;
         
-        // effect
+        PerTurnBuff();
         
         if (lifespan <= 0)
         {
@@ -21,4 +33,9 @@ public class Buff
         }
     }
 
+    public void PerTurnBuff()
+    {
+
+    }
+    #endregion
 }
