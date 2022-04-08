@@ -7,10 +7,11 @@ using UnityEngine;
 public class Buff
 {
     public int amount;
+    public bool hasLifespan;
     public int lifespan;
 
     #region StaticEffect
-    private void Awake() { // 스탯 버프
+    private void Awake(int lifespan = 3) { // 스탯 버프
         
     }
 
@@ -23,17 +24,21 @@ public class Buff
     #region PerTurnEffect
     public void OnEndOfTurn() // 턴마다 효과가 있는 버프
     {
-        lifespan--;
-        
         PerTurnBuff();
         
-        if (lifespan <= 0)
+        if (hasLifespan)
         {
-            //destroy
+            lifespan--;
+            
+            if (lifespan <= 0)
+            {
+                //destroy
+            }
         }
+
     }
 
-    public void PerTurnBuff()
+    void PerTurnBuff()
     {
 
     }
