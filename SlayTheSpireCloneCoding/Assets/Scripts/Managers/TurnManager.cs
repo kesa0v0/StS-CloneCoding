@@ -52,7 +52,7 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < startCardCount; i++)
         {
             yield return delay05;
-            OnAddCard?.Invoke();
+            // OnAddCard?.Invoke();
         }
         StartCoroutine(StartTurnCo());
     }

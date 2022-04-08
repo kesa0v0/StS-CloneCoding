@@ -10,16 +10,19 @@ public class CardManager : MonoBehaviour
     public static CardManager Inst { get; private set; }
     void Awake() => Inst = this;
 
-    [SerializeField] CardSO cardSO; // 카드 리스트
     [SerializeField] GameObject cardPrefab; // 카드 프리팹
-    [SerializeField] List<Card> handCard; // 손에 들고있는 카드()들 리스트
-    [SerializeField] Transform cardSpawnPoint; //
-    [SerializeField] Transform handCardLeft;
-    [SerializeField] Transform handCardRight;
+    [SerializeField] Transform availableDeckPos; //
+    [SerializeField] Transform discardDeckPos; //
+    [SerializeField] Transform handDeckLeft;
+    [SerializeField] Transform handDeckRight;
     [SerializeField] GameObject TargetIndicator;
     [SerializeField] ECardState eCardState;
 
-    List<CardData> cardDeck; // itemBuffer
+    public List<CardData> allCardDeck; // 전체 카드 덱   // cardso
+    [SerializeField] List<Card> availableDeck; // TODO: Card-> CardData로 바꿀수도 있워오
+    [SerializeField] List<Card> handDeck; // 손에 들고있는 카드()들 리스트
+    [SerializeField] List<Card> discardedDeck;
+
     Card selectCard;
     CharacterEntity targetEntity;
     bool ExistTargetIndicatorEntity => targetEntity != null;
@@ -28,54 +31,119 @@ public class CardManager : MonoBehaviour
     enum ECardState { Nothing, CanMouseOver, CanMouseDrag }
 
 
-
-    public CardData PopItem() // 카드뽑기
+    #region Deck
+    void SetupAvailableDeck() // 게임 시작시 카드 덱 제작
     {
-        if (cardDeck.Count == 0) // 덱에 아무 카드도 없을시 덱 재생성
-            SetupCardDeck();
-
-        CardData cardData = cardDeck[0];
-        cardDeck.RemoveAt(0);
-        return cardData;
-    }
-
-    void SetupCardDeck() // 카드 덱 제작 및 셔플
-    {
-        cardDeck = new List<CardData>();
-        // TODO: 현재는 존재하는 카드 리스트에서 카드 뽑아옴. 덱-> 사용가능덱->손패->버림덱으로 바꿀 것.
-        for (int i = 0; i < cardSO.cardDatas.Length; i++)
-        { // 덱에 카드 넣기 
-            cardDeck.Add(cardSO.cardDatas[i]);
+        availableDeck = new List<Card>();
+        for (int i = 0; i < allCardDeck.Count; i++)
+        { // 덱에 카드 넣기 '
+            print(i.ToString() + allCardDeck[i].name);
+            availableDeck.Add(MakeCard(allCardDeck[i]));
         }
 
-        for (int i = 0; i < cardDeck.Count; i++)
+        ShuffleDeck(availableDeck);
+    }
+
+    Card MakeCard(CardData cardData) // 카드 Instantiate
+    {
+        var cardObject = Instantiate(cardPrefab, availableDeckPos.position, Utils.QI);
+        var card = cardObject.GetComponent<Card>();
+        card.Setup(cardData);
+        card.makeVisible(false);
+
+        return card;
+    }
+
+    List<Card> ShuffleDeck(List<Card> deck) // 덱 셔플
+    {
+        for (int i = 0; i < deck.Count; i++)
         { // 카드 셔플 TODO: 진짜 셔플하는거 맞는지 확인좀
-            int rand = Random.Range(i, cardDeck.Count);
-            CardData temp = cardDeck[i];
-            cardDeck[i] = cardDeck[rand];
-            cardDeck[rand] = temp;
+            int rand = Random.Range(i, deck.Count);
+            Card temp = deck[i];
+            deck[i] = deck[rand];
+            deck[rand] = temp;
+        }
+        return deck;
+    }
 
+    void ResetAvailableDeck() // discardDeck 에서 AvailableDeck으로 넘기기
+    {
+        for (int i = 0; i < discardedDeck.Count; i++)
+        {
+            Card card = discardedDeck[i];
+            availableDeck.Add(card);
+            card.MoveTransform(new PRS(availableDeckPos.position, Utils.QI, card.originPRS.scale), false);
+            discardedDeck.RemoveAt(i);
+        }
+
+        ShuffleDeck(availableDeck);
+    }
+
+    public void addTohandDeck() // 카드뽑기
+    {
+        if (availableDeck.Count == 0) // 덱에 아무 카드도 없을시 덱 재생성
+            ResetAvailableDeck();
+
+        Card card = availableDeck[0];
+        handDeck.Add(card);
+        card.makeVisible(true);
+        availableDeck.RemoveAt(0);
+
+        SetOriginOrder();
+        CardAlignment();
+    }
+
+    void PickupCards(int pickNum)
+    {
+        for (int i=0; i<pickNum; i++)
+        {
+            addTohandDeck();
         }
     }
+
+    IEnumerator DiscardCard(Card card)
+    {
+        discardedDeck.Add(card);
+        handDeck.Remove(card);
+
+        // yield return StartCoroutine(card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.9f));
+        // yield return StartCoroutine(card.makeVisible(false));
+
+        card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.5f);
+        yield return new WaitForSeconds(0.5f); // TODO: 나중에 고칩시다 ㄹㅇㅋㅋ
+        
+        card.makeVisible(false);
+
+        SetOriginOrder();
+        CardAlignment();
+    }
+    
+    #endregion
 
     void Start() // 시작할 때 덱 셋업
     {
-        SetupCardDeck();
-        TurnManager.OnAddCard += AddCard; // 카드추가 이벤트 반응 추가
+
+        allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기
+            new DealDamage(),
+            new DealDamage(),
+            new DealDamage(),
+            new DealDamage(),
+            new AddShield(),
+            new AddShield(),
+            new AddShield(),
+            new AddShield()
+        };
+
+
+        SetupAvailableDeck();
+        TurnManager.OnAddCard += addTohandDeck; // 카드추가 이벤트 반응 추가
         TurnManager.OnTurnStarted += OnTurnStarted; // 턴 시작시 이벤트 반응 추가
     }
 
     void OnDestroy()
     {
-        TurnManager.OnAddCard -= AddCard; // 카드추가 이벤트 반응 제거
+        TurnManager.OnAddCard -= addTohandDeck; // 카드추가 이벤트 반응 제거
         TurnManager.OnTurnStarted -= OnTurnStarted; // 턴 시작시 이벤트 반응 제거
-    }
-
-    void OnTurnStarted(bool isMyTurn)
-    {
-        // if (isMyTurn)
-            // availableEnengy = max; //TODO: 에너지 꽉 채우기
-        
     }
 
     void Update()
@@ -87,36 +155,43 @@ public class CardManager : MonoBehaviour
         DetectCardArea();
         ShowTargetIndicator(ExistTargetIndicatorEntity);
     }
-
-    void AddCard() // 카드 Instantiate
+    
+    void OnTurnStarted(bool isMyTurn)
     {
-        var cardObject = Instantiate(cardPrefab, cardSpawnPoint.position, Utils.QI);
-        var card = cardObject.GetComponent<Card>();
-        card.Setup(PopItem());
+        if (isMyTurn)
+        {
+            // availableEnengy = max; //TODO: 에너지 꽉 채우기
 
-        handCard.Add(card);
+            for (int i = 0; i < handDeck.Count; i++)
+            {
+                Card card = handDeck[i];
+                discardedDeck.Add(card);
+                card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.5f);
+                handDeck.RemoveAt(i);
+            }
 
-        SetOriginOrder();
-        CardAlignment();
+            PickupCards(5); //TODO: 뽑는 카드 개수 ㅈ정할수 있게
+        }
+        
     }
 
+
+    #region CardAlign
     void SetOriginOrder() // 카드 오더 정하는 것
     {
-        int count = handCard.Count;
-        for (int i = 0; i < count; i++) // TODO: 이거 카드 추가할 때 마다 반복문 돌려서 count 높아질수록 리소스 많이 잡아먹을꺼같은데
+        int count = handDeck.Count;
+        for (int i = 0; i < count; i++) // TODO: 이거 카드 추가할 때 마다 반복문 돌려서 count 높아질수록 리소스 많이 잡아먹을꺼같은데 더 좋은 방법 있을까
         {
-            var targetCard = handCard[i];
+            var targetCard = handDeck[i];
             targetCard?.GetComponent<Order>().SetOriginOrder(i);
         }
     }
-
-    #region CardAlign
     void CardAlignment() // 카드 정렬
     {
         List<PRS> originCardPRSs = new List<PRS>();
-        originCardPRSs = RoundAlignment(handCardLeft, handCardRight, handCard.Count, 0.5f, Vector3.one * 1.9f);
+        originCardPRSs = RoundAlignment(handDeckLeft, handDeckRight, handDeck.Count, 0.5f, Vector3.one * 1.9f);
 
-        var targetCards = handCard;
+        var targetCards = handDeck;
         for (int i = 0; i < targetCards.Count; i++)
         {
             var targetCard = targetCards[i];
@@ -241,7 +316,7 @@ public class CardManager : MonoBehaviour
         if (onMyCardArea != nowOnCardArea)
         {
             // selectCard.MoveTransform(new PRS(Utils.MousePos, Utils.QI, selectCard.originPRS.scale), false);
-            Vector3 DragPos = new Vector3((handCardLeft.position.x + handCardRight.position.x)/2, -9f, -10f);
+            Vector3 DragPos = new Vector3((handDeckLeft.position.x + handDeckRight.position.x)/2, -9f, -10f);
 
             selectCard.MoveTransform(new PRS(DragPos, Utils.QI, selectCard.originPRS.scale * 1.5f), true, 0.5f);
             
@@ -286,7 +361,7 @@ public class CardManager : MonoBehaviour
 
     public void DestroyCard(Card card)
     {
-        handCard.Remove(card);
+        handDeck.Remove(card);
         card.transform.DOKill();
         DestroyImmediate(card.gameObject);
         selectCard = null;
@@ -308,9 +383,13 @@ public class CardManager : MonoBehaviour
 
     void UseCardEffect(Card card, CharacterEntity target)
     {
-        card.cardData.ApplyEffect(target);
+        card.cardData.ApplyEffect();
         if (target != null)
+        {
             target?.GetComponent<CharacterEntity>().UpdateTMP();
+        }
+
+        StartCoroutine(DiscardCard(card));
     }
 
 }

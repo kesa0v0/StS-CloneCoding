@@ -312,7 +312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &252773877
 GameObject:
@@ -763,7 +763,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -781,7 +781,7 @@ RectTransform:
   - {fileID: 1453700549}
   - {fileID: 29911996}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -975,14 +975,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13118f925b3f84a46827d09fa36cb095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardSO: {fileID: 11400000, guid: fb1a0276aa853a249ac392f3822c27fb, type: 2}
   cardPrefab: {fileID: 6444647801126565369, guid: 4172579407e0c72479afae73bfad74d6, type: 3}
-  handCard: []
   cardSpawnPoint: {fileID: 1015741890}
-  handCardLeft: {fileID: 1510926837}
-  handCardRight: {fileID: 1731051265}
+  handDeckLeft: {fileID: 1510926837}
+  handDeckRight: {fileID: 1731051265}
   TargetIndicator: {fileID: 1552164614}
   eCardState: 0
+  allCardDeck: []
+  availableDeck: []
+  handDeck: []
+  discardedDeck: []
 --- !u!4 &974283055
 Transform:
   m_ObjectHideFlags: 0
@@ -1008,7 +1010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1015741890}
   m_Layer: 0
-  m_Name: CardSpawnPoint
+  m_Name: AvailableDeckPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1058,7 +1060,7 @@ Transform:
   - {fileID: 1682426929}
   - {fileID: 890870107}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1150018856
 GameObject:
@@ -2026,7 +2028,37 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1832438538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1832438539}
+  m_Layer: 0
+  m_Name: DiscardDeckPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1832438539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832438538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.1, y: -17.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1886701419
 GameObject:
@@ -2076,13 +2108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ece789659fdcc48983e617f4b9db33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chEntityData:
-    name: 
-    sprite: {fileID: 0}
-    maxHealth: 0
-    initShield: 0
-    isUseSanity: 0
-    maxSanity: 0
   entityBase: {fileID: 1886701419}
   character: {fileID: 1150018858}
   healthTMP: {fileID: 1727476621}
@@ -2096,6 +2121,13 @@ MonoBehaviour:
   maxSanity: 80
   sanity: 80
   originPos: {x: 0, y: 0, z: 0}
+  chEntityData:
+    name: 
+    sprite: {fileID: 0}
+    maxHealth: 0
+    initShield: 0
+    isUseSanity: 0
+    maxSanity: 0
 --- !u!114 &1886701422
 MonoBehaviour:
   m_ObjectHideFlags: 0

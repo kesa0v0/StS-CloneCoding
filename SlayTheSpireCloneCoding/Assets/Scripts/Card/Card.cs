@@ -52,6 +52,11 @@ public class Card : MonoBehaviour
         }
     }
 
+    public void makeVisible(bool visibility)
+    {
+        transform.gameObject.SetActive(visibility);
+    }
+
     #region CardMouseControl
     private void OnMouseOver()
     {
