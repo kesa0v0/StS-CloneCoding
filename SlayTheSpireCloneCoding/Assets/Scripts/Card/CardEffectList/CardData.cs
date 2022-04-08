@@ -4,9 +4,9 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class CardData : MonoBehaviour
+public class CardData
 {
-    public string name;
+    public string cardName;
     public int energy;
     public int reinforcedLevel;
     public Sprite sprite;
@@ -14,5 +14,10 @@ public class CardData : MonoBehaviour
     public virtual void ApplyEffect()
     {
 
+    }
+
+    public Sprite getSpriteFromResources(string path)
+    {
+        return Resources.Load<Sprite>(path);
     }
 }

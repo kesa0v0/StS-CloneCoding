@@ -6,10 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class DealDamage : CardData
 {
-    public string name = "공격"; //이렇게 하는게 맞는지는 몰?루
-    public int energy = 1;
-    public int reinforcedLevel = 0;
-    public Sprite sprite;
+    public DealDamage() {
+        cardName = "공격";
+        energy = 1;
+        reinforcedLevel = 0;
+        sprite = getSpriteFromResources("Sprites/Characters/character_3");
+    }
 
     private int[] _damagePerReinforce = new int[] { 5, 8 };
 

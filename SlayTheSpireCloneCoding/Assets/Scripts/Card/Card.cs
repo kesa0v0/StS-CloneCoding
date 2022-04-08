@@ -25,7 +25,7 @@ public class Card : MonoBehaviour
         if (this.isfront)
         {
             character.sprite = this.cardData.sprite;
-            nameTMP.text = this.cardData.name;
+            nameTMP.text = this.cardData.cardName;
             energyTMP.text = this.cardData.energy.ToString();
         }
         else

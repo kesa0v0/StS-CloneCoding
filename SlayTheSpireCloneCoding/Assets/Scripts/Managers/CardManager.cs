@@ -37,7 +37,7 @@ public class CardManager : MonoBehaviour
         availableDeck = new List<Card>();
         for (int i = 0; i < allCardDeck.Count; i++)
         { // 덱에 카드 넣기 '
-            print(i.ToString() + allCardDeck[i].name);
+            print(i.ToString() + allCardDeck[i].cardName);
             availableDeck.Add(MakeCard(allCardDeck[i]));
         }
 

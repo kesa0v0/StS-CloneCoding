@@ -976,7 +976,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6444647801126565369, guid: 4172579407e0c72479afae73bfad74d6, type: 3}
-  cardSpawnPoint: {fileID: 1015741890}
+  availableDeckPos: {fileID: 1015741890}
+  discardDeckPos: {fileID: 1832438539}
   handDeckLeft: {fileID: 1510926837}
   handDeckRight: {fileID: 1731051265}
   TargetIndicator: {fileID: 1552164614}

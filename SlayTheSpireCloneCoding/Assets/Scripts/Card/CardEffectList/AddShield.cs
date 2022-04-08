@@ -6,6 +6,13 @@ using UnityEngine;
 [System.Serializable]
 public class AddShield : CardData
 {
+    public AddShield() {
+        cardName = "방어";
+        energy = 1;
+        reinforcedLevel = 0;
+        sprite = getSpriteFromResources("Sprites/Characters/character_4");
+    }
+
     int[] _shieldPerLevel = new int[] { 5, 8 };
 
     public string CardDescription()
