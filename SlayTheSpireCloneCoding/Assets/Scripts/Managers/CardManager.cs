@@ -37,7 +37,6 @@ public class CardManager : MonoBehaviour
         availableDeck = new List<Card>();
         for (int i = 0; i < allCardDeck.Count; i++)
         { // 덱에 카드 넣기 '
-            print(i.ToString() + allCardDeck[i].cardName);
             availableDeck.Add(MakeCard(allCardDeck[i]));
         }
 
@@ -110,7 +109,7 @@ public class CardManager : MonoBehaviour
         // yield return StartCoroutine(card.makeVisible(false));
 
         card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.5f);
-        yield return new WaitForSeconds(0.5f); // TODO: 나중에 고칩시다 ㄹㅇㅋㅋ
+        yield return new WaitForSeconds(0.5f); // TODO: 나중에 고칩시다 ㄹㅇㅋㅋ (카드 옮기고 지우는거 따로) < coroutine (정렬하는거 따로)
         
         card.makeVisible(false);
 
@@ -162,17 +161,21 @@ public class CardManager : MonoBehaviour
         {
             // availableEnengy = max; //TODO: 에너지 꽉 채우기
 
-            for (int i = 0; i < handDeck.Count; i++)
-            {
-                Card card = handDeck[i];
-                discardedDeck.Add(card);
-                card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.5f);
-                handDeck.RemoveAt(i);
-            }
 
             PickupCards(5); //TODO: 뽑는 카드 개수 ㅈ정할수 있게
         }
         
+    }
+
+    public IEnumerable EndTurnCards()
+    {
+        print(handDeck.Count);
+        for (int i = 0; i < handDeck.Count; i++)
+        {
+            DiscardCard(handDeck[0]);
+        }
+        print("SSSSSSS");
+        return null;
     }
 
 

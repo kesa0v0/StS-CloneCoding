@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartGame();
+        TurnManager.Inst.StartGame();
     }
 
     // Update is called once per frame
@@ -45,11 +45,6 @@ public class GameManager : MonoBehaviour
         {
             EnemyManager.Inst.SpawnEnemy(enemySO.enemyDatas[0]);
         }
-    }
-
-    public void StartGame()
-    {
-        StartCoroutine(TurnManager.Inst.StartGameCo());
     }
 
     public void Notificaiton(string message)

@@ -22,8 +22,9 @@ public class TurnManager : MonoBehaviour
     WaitForSeconds delay05 = new WaitForSeconds(0.5f); // 0.5초 기다리기?
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
 
-    public static Action OnAddCard; // 카드추가 이벤트
+    public static Action OnAddCard; // 카드추가 이벤트 TODO: 이거 BattleManager로 옮겨야할꺼같아오
     public static event Action<bool> OnTurnStarted;
+    
 
     void GameSetup()
     {
@@ -44,20 +45,15 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    public IEnumerator StartGameCo()
+    public void StartGame()
     {
         GameSetup();
         isLoading = true;
 
-        for (int i = 0; i < startCardCount; i++)
-        {
-            yield return delay05;
-            // OnAddCard?.Invoke();
-        }
         StartCoroutine(StartTurnCo());
     }
 
-    IEnumerator StartTurnCo()
+    IEnumerator StartTurnCo() // TODO: 최적화 문제?
     {
         isLoading = true;
         if (isMyTurn)
@@ -76,6 +72,15 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         isMyTurn = !isMyTurn;
-        StartCoroutine(StartTurnCo());
+
+        CardManager.Inst.EndTurnCards();
+        StartCoroutine(EndTurnCo());
+    }
+
+    public IEnumerator EndTurnCo()
+    {
+        yield return CardManager.Inst.EndTurnCards();
+
+        yield return StartCoroutine(StartTurnCo());
     }
 }
