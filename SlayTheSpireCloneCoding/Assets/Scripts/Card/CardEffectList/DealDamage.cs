@@ -16,12 +16,12 @@ public class DealDamage : CardData
     private int[] _damagePerReinforce = new int[] { 5, 8 };
 
 
-    public string CardDescription(int amount)
+    public override string CardDescription()
     {
         return $"대상에게 {_damagePerReinforce[reinforcedLevel]} 데미지를 가합니다"; //string.format
     }
 
-    public void ApplyEffect(CharacterEntity target)
+    public override void ApplyEffect()
     {
         BattleManager.Inst.TargetGetDamage(null, target, _damagePerReinforce[reinforcedLevel]);
     }

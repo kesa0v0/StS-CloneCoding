@@ -161,15 +161,19 @@ public class CardManager : MonoBehaviour
     {
         if (isMyTurn)
         {
-            BattleManager.Inst.FillEnergy();
-            PickupCards(pickupCardNum);
+            // 남은 방어도 버리기?
+            
+
+            BattleManager.Inst.FillEnergy(); // 내 턴에 에너지 리필
+            PickupCards(pickupCardNum); // 내 턴에 손 카드 받기
         }
         
     }
 
     public IEnumerator EndTurnCards()
     {
-        int leftCardNum = handDeck.Count;
+        // 남은 손 카드 버리기
+        int leftCardNum = handDeck.Count; 
         for (int i = 0; i < leftCardNum; i++)
         {
             yield return DiscardCard(handDeck[0]);
@@ -386,6 +390,7 @@ public class CardManager : MonoBehaviour
     {
         if (BattleManager.Inst.useEnergy(card.cardData.energy))
         {
+            card.cardData.target = target;
             card.cardData.ApplyEffect();
             if (target != null)
             {

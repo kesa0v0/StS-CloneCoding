@@ -10,6 +10,13 @@ public class CardData // TODO: 지금은 몰라도 Effect랑 카드데이터랑 
     public int energy;
     public int reinforcedLevel;
     public Sprite sprite;
+    public CharacterEntity target;
+
+    
+    public virtual string CardDescription()
+    {
+        return "";
+    }
 
     public virtual void ApplyEffect()
     {
