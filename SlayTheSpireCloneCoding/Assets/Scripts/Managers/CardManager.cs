@@ -129,7 +129,8 @@ public class CardManager : MonoBehaviour
             new AddShield(),
             new AddShield(),
             new AddShield(),
-            new AddShield()
+            new AddShield(),
+            new Smite()
         };
 
 
