@@ -9,9 +9,11 @@ public class Buff
     public int amount;
     public bool hasLifespan;
     public int lifespan;
+    [SerializeField] Sprite sprite;
+    
 
     #region StaticEffect
-    private void Awake(int lifespan = 3) { // 스탯 버프
+    private void Awake() { // 스탯 버프
         
     }
 

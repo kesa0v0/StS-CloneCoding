@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
 
 	void EnemyAlignment() // 적 정렬
 	{
-		float targetY = 5f;
+		float targetY = enemyLocation.position.y;
         float targetXRange = Mathf.Abs(enemyLocationLeft.position.x - enemyLocationRight.position.x);
 
 		for (int i = 0; i < enemyList.Count; i++)

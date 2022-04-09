@@ -18,6 +18,8 @@ public class TurnManager : MonoBehaviour
     public bool isMyTurn;
     public bool isLoading;
 
+    public int maxEnergy;
+
     enum ETurnMode { Random, My, Other }
     WaitForSeconds delay05 = new WaitForSeconds(0.5f); // 0.5초 기다리기?
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);

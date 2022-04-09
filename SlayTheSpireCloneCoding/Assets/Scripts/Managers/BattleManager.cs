@@ -1,12 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Inst { get; private set; }
     void Awake() => Inst = this;
 
+    [SerializeField] TMP_Text EnergyCounter;
+
+    public int maxEnergy;
+    public int currEnergy;
+
+    #region Energy
+
+    void updateEnergyCounter()
+    {
+        EnergyCounter.text = $"{currEnergy}/{maxEnergy}";
+    }
+
+
+    public void FillEnergy()
+    {
+        currEnergy = maxEnergy;
+
+        updateEnergyCounter();
+    }
+
+    public bool useEnergy(int amount)
+    {
+        if (currEnergy - amount < 0)
+        {
+            return false;
+        }
+        else
+        {
+            currEnergy -= amount;
+            updateEnergyCounter();
+
+            return true;
+        }
+    }
+
+    #endregion
 
     public void TargetGetDamage(CharacterEntity player, CharacterEntity target, int amount) // 데미지 받는 함-수 (Manager로 옮길수도 있워오)
     {

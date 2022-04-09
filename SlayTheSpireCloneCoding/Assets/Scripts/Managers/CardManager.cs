@@ -22,6 +22,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] List<Card> availableDeck; // TODO: Card-> CardData로 바꿀수도 있워오
     [SerializeField] List<Card> handDeck; // 손에 들고있는 카드()들 리스트
     [SerializeField] List<Card> discardedDeck;
+    
+    public int pickupCardNum;
 
     Card selectCard;
     CharacterEntity targetEntity;
@@ -159,10 +161,8 @@ public class CardManager : MonoBehaviour
     {
         if (isMyTurn)
         {
-            // availableEnengy = max; //TODO: 에너지 꽉 채우기
-
-
-            PickupCards(5); //TODO: 뽑는 카드 개수 ㅈ정할수 있게
+            BattleManager.Inst.FillEnergy();
+            PickupCards(pickupCardNum);
         }
         
     }
@@ -384,13 +384,20 @@ public class CardManager : MonoBehaviour
 
     void UseCardEffect(Card card, CharacterEntity target)
     {
-        card.cardData.ApplyEffect();
-        if (target != null)
+        if (BattleManager.Inst.useEnergy(card.cardData.energy))
         {
-            target?.GetComponent<CharacterEntity>().UpdateTMP();
-        }
+            card.cardData.ApplyEffect();
+            if (target != null)
+            {
+                target?.GetComponent<CharacterEntity>().UpdateTMP();
+            }
 
-        StartCoroutine(DiscardCard(card));
+            StartCoroutine(DiscardCard(card));
+        }
+        else
+        {
+            print("Not Enough Energy"); // TODO: 이거 화면에 띄우기
+        }
     }
 
 }
