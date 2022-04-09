@@ -8,7 +8,7 @@ public class Smite : CardData
         cardName = "강타";
         energy = 2;
         reinforcedLevel = 0;
-        sprite = getSpriteFromResources("Sprites/Characters/character_5");
+        sprite = Resources.Load<Sprite>("Sprites/Characters/character_5");
     }
 
     int[] _damagePerReinforce = new int[] { 8, 12 };
@@ -20,6 +20,6 @@ public class Smite : CardData
     public void ApplyEffect(CharacterEntity target)
     {
         BattleManager.Inst.TargetGetDamage(null, target, _damagePerReinforce[reinforcedLevel]);
-        //TODO: 취약 디버프 제작
+        // target.ownBuffs.Add(new Vulnerable());
     }
 }

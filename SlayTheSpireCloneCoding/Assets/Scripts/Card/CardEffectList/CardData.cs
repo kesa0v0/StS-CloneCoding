@@ -15,9 +15,4 @@ public class CardData // TODO: 지금은 몰라도 Effect랑 카드데이터랑 
     {
 
     }
-
-    public Sprite getSpriteFromResources(string path)
-    {
-        return Resources.Load<Sprite>(path);
-    }
 }

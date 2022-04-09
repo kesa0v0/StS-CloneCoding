@@ -21,7 +21,7 @@ public class CharacterEntity : MonoBehaviour
     public int sanity;
     public Vector3 originPos;
     public CharacterEntityData chEntityData;
-    // public buffs ownBuffs
+    public List<Buff> ownBuffs;
 
     public void Setup(CharacterEntityData entityData)
     {
@@ -32,6 +32,8 @@ public class CharacterEntity : MonoBehaviour
         maxSanity = entityData.maxSanity;
         sanity = entityData.maxSanity;
         isUseSanity = entityData.isUseSanity;
+
+        ownBuffs = new List<Buff>();
 
         this.chEntityData = entityData;
         UpdateTMP();

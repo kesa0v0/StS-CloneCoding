@@ -10,7 +10,7 @@ public class AddShield : CardData
         cardName = "방어";
         energy = 1;
         reinforcedLevel = 0;
-        sprite = getSpriteFromResources("Sprites/Characters/character_4");
+        sprite = Resources.Load<Sprite>("Sprites/Characters/character_4");
     }
 
     int[] _shieldPerLevel = new int[] { 5, 8 };

@@ -22,6 +22,11 @@ public class Card : MonoBehaviour
         this.cardData = cardData;
         this.isfront = isfront;
 
+        UpdateTMP();
+    }
+
+    public void UpdateTMP()
+    {
         if (this.isfront)
         {
             character.sprite = this.cardData.sprite;
@@ -83,4 +88,7 @@ public class Card : MonoBehaviour
     }
 
     #endregion
+
+
+
 }

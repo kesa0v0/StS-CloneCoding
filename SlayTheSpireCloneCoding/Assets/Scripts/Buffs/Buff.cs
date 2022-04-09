@@ -1,48 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 
 [System.Serializable]
 public class Buff
 {
-    public int amount;
-    public bool hasLifespan;
-    public int lifespan;
-    [SerializeField] Sprite sprite;
-    
+    [SerializeField] SpriteRenderer BuffSprite;
+    [SerializeField] TMP_Text BuffCountTMP;
+    public BuffData buffData;
 
-    #region StaticEffect
-    private void Awake() { // 스탯 버프
-        
-    }
 
-    private void OnDestroy() {
-        
-    }
-
-    #endregion
-
-    #region PerTurnEffect
-    public void OnEndOfTurn() // 턴마다 효과가 있는 버프
+    public void Setup(BuffData buffData)
     {
-        PerTurnBuff();
-        
-        if (hasLifespan)
-        {
-            lifespan--;
-            
-            if (lifespan <= 0)
-            {
-                //destroy
-            }
-        }
-
+        this.buffData = buffData;
+        UpdateTMP();
     }
 
-    void PerTurnBuff()
+    public void UpdateTMP()
     {
-
+        this.BuffSprite.sprite = buffData.sprite;
+        this.BuffCountTMP.text = buffData.amount.ToString();
     }
-    #endregion
 }

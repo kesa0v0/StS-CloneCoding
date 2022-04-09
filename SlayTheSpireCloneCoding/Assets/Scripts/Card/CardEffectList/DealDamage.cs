@@ -10,7 +10,7 @@ public class DealDamage : CardData
         cardName = "공격";
         energy = 1;
         reinforcedLevel = 0;
-        sprite = getSpriteFromResources("Sprites/Characters/character_3");
+        sprite = Resources.Load<Sprite>("Sprites/Characters/character_3");
     }
 
     private int[] _damagePerReinforce = new int[] { 5, 8 };
