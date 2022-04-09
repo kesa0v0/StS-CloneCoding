@@ -46,6 +46,7 @@ public class CardManager : MonoBehaviour
     Card MakeCard(CardData cardData) // 카드 Instantiate
     {
         var cardObject = Instantiate(cardPrefab, availableDeckPos.position, Utils.QI);
+        cardObject.name = ("card " + Random.Range(0, 1000).ToString());
         var card = cardObject.GetComponent<Card>();
         card.Setup(cardData);
         card.makeVisible(false);
@@ -67,12 +68,13 @@ public class CardManager : MonoBehaviour
 
     void ResetAvailableDeck() // discardDeck 에서 AvailableDeck으로 넘기기
     {
-        for (int i = 0; i < discardedDeck.Count; i++)
+        int leftCardNum = discardedDeck.Count;
+        for (int i = 0; i < leftCardNum; i++)
         {
-            Card card = discardedDeck[i];
+            Card card = discardedDeck[0];
             availableDeck.Add(card);
+            discardedDeck.RemoveAt(0);
             card.MoveTransform(new PRS(availableDeckPos.position, Utils.QI, card.originPRS.scale), false);
-            discardedDeck.RemoveAt(i);
         }
 
         ShuffleDeck(availableDeck);
@@ -100,23 +102,20 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    IEnumerator DiscardCard(Card card)
+    public IEnumerator DiscardCard(Card card)
     {
         discardedDeck.Add(card);
         handDeck.Remove(card);
 
-        // yield return StartCoroutine(card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.9f));
-        // yield return StartCoroutine(card.makeVisible(false));
-
-        card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.5f);
-        yield return new WaitForSeconds(0.5f); // TODO: 나중에 고칩시다 ㄹㅇㅋㅋ (카드 옮기고 지우는거 따로) < coroutine (정렬하는거 따로)
+        card.MoveTransform(new PRS(discardDeckPos.position, Utils.QI, card.originPRS.scale), true, 0.1f);
+        yield return new WaitForSeconds(0.1f); // TODO: 나중에 고칩시다 ㄹㅇㅋㅋ (카드 옮기고 지우는거 따로) < coroutine (정렬하는거 따로)
         
         card.makeVisible(false);
 
         SetOriginOrder();
         CardAlignment();
     }
-    
+
     #endregion
 
     void Start() // 시작할 때 덱 셋업
@@ -167,15 +166,13 @@ public class CardManager : MonoBehaviour
         
     }
 
-    public IEnumerable EndTurnCards()
+    public IEnumerator EndTurnCards()
     {
-        print(handDeck.Count);
-        for (int i = 0; i < handDeck.Count; i++)
+        int leftCardNum = handDeck.Count;
+        for (int i = 0; i < leftCardNum; i++)
         {
-            DiscardCard(handDeck[0]);
+            yield return DiscardCard(handDeck[0]);
         }
-        print("SSSSSSS");
-        return null;
     }
 
 
