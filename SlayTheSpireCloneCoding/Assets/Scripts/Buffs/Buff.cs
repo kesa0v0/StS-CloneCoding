@@ -2,25 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 
 [System.Serializable]
-public class Buff
+public class Buff : MonoBehaviour
 {
     [SerializeField] SpriteRenderer BuffSprite;
     [SerializeField] TMP_Text BuffCountTMP;
-    public BuffData buffData;
 
+    [SerializeField] BuffData buffData;
 
     public void Setup(BuffData buffData)
     {
         this.buffData = buffData;
+        this.buffData.Setup(this);
         UpdateTMP();
     }
 
     public void UpdateTMP()
     {
-        this.BuffSprite.sprite = buffData.sprite;
+        // this.BuffSprite.sprite = buffData.sprite;  //TODO: 버프 스프라이트 제작 or 크기 고정
         this.BuffCountTMP.text = buffData.amount.ToString();
+    }
+
+    public void DestroyBuff()
+    {
+        this.transform.parent.gameObject.GetComponent<CharacterEntity>()?.ownBuffs.Remove(this);
+        this.transform.gameObject.transform.DOKill();
+        DestroyImmediate(this.transform.gameObject);
+    }
+
+    public void ActivateBuff() // TODO: 이거 더 적절한 이름 없으려나? 버프 활성화 하기
+    {
+        this.buffData.OnEndOfTurn();
+    }
+    
+    public void MoveTransform(PRS prs, bool useDotween, float dotweenTime = 0)
+    {
+        if (useDotween)
+        {
+            transform.DOMove(prs.pos, dotweenTime);
+            transform.DORotateQuaternion(prs.rot, dotweenTime);
+            transform.DOScale(prs.scale, dotweenTime);
+        }
+        else
+        {
+            transform.position = prs.pos;
+            transform.rotation = prs.rot;
+            transform.localScale = prs.scale;
+        }
     }
 }

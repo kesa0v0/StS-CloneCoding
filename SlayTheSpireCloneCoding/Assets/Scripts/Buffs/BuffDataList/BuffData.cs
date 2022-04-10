@@ -2,47 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class BuffData
 {
-    
-    public int amount;
-    public bool hasLifespan;
-    public int lifespan;
+    [SerializeField] Buff AttatchedBuff;
+    [SerializeField] CharacterEntity AttatchedEntity;
+    [SerializeField] string name;
     public Sprite sprite;
-    
 
-    #region StaticEffect
-    private void Awake() { // 스탯 버프
+    public bool isPerTurn;
+    public bool hasLifespan;
+
+    public int amount;   
+    public int lifespan;
+
+    public void Setup(Buff buff)
+    {
+        this.AttatchedBuff = buff;
+        Debug.Log(buff.transform.gameObject.name);
+        // Debug.Log(buff.transform.parent.gameObject.name);
+        // this.AttatchedEntity = buff.transform.parent.gameObject.GetComponent<CharacterEntity>();
+    }
+
+    protected virtual void StaticEffect()
+    {
         
     }
 
-    private void OnDestroy() {
-        
+    protected virtual void ActiveEffect() // 효과 발동시 실행되는 버프
+    {
+
     }
 
-    #endregion
-
-    #region PerTurnEffect
     public void OnEndOfTurn() // 턴마다 효과가 있는 버프
     {
-        PerTurnBuff();
+        if (isPerTurn)
+            ActiveEffect();
         
         if (hasLifespan)
         {
             lifespan--;
-            
+
             if (lifespan <= 0)
             {
-                //destroy
+                AttatchedBuff.DestroyBuff();
             }
         }
-
     }
 
-    void PerTurnBuff()
+    public void MergeBuff() // 버프 합산 TODO:
     {
 
     }
-    #endregion
-
 }

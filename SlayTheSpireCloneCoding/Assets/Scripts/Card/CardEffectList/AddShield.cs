@@ -17,10 +17,12 @@ public class AddShield : CardData
 
     public override string CardDescription()
     {
+        base.CardDescription();
         return $"대상에게 방어력 { _shieldPerLevel[reinforcedLevel] } 을 제공합니다"; //string.format
     }
     public override void ApplyEffect()
     {
+        base.ApplyEffect();
         target.shield += _shieldPerLevel[reinforcedLevel]; //TODO: 이거 BattleManager로 옮기기ㅣ
     }
 }

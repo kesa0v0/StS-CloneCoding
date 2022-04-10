@@ -18,11 +18,13 @@ public class DealDamage : CardData
 
     public override string CardDescription()
     {
+        base.CardDescription();
         return $"대상에게 {_damagePerReinforce[reinforcedLevel]} 데미지를 가합니다"; //string.format
     }
 
     public override void ApplyEffect()
     {
+        base.ApplyEffect();
         BattleManager.Inst.TargetGetDamage(null, target, _damagePerReinforce[reinforcedLevel]);
     }
 }

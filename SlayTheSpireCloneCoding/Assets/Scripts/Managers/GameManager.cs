@@ -27,21 +27,20 @@ public class GameManager : MonoBehaviour
 
     void InputCheatKey() // 디버그용 치트
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad1)) // 카드 1개 받기
             TurnManager.OnAddCard?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.Keypad2)) // 턴 끝내기
             TurnManager.Inst.EndTurn();
 
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-            if (CardManager.Inst.getSelectCard())
-                CardManager.Inst.DestroyCard(CardManager.Inst.getSelectCard());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad4))
+        if (Input.GetKeyDown(KeyCode.Keypad3)) // 적 스폰
         {
             EnemyManager.Inst.SpawnEnemy(enemySO.enemyDatas[0]);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad4)) // 에너지 99 추가
+        {
+            BattleManager.Inst.FillEnergy(false, 99);
         }
     }
 

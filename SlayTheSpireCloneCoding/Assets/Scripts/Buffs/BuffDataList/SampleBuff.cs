@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vulnerable : BuffData
+public class SampleBuff : BuffData
 {
-    public Vulnerable()
+    public SampleBuff()
     {
-        hasLifespan = true;
+        hasLifespan = false;
         isPerTurn = false;
         amount = 0;
-        lifespan = 2;
+        lifespan = 0;
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_12");
     }
 
@@ -23,5 +23,6 @@ public class Vulnerable : BuffData
     {
         base.ActiveEffect();
         
+        Debug.Log("TestBuffActivation");
     }
 }

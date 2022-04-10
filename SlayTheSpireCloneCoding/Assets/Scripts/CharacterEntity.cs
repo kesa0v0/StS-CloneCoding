@@ -6,25 +6,29 @@ using DG.Tweening;
 
 public class CharacterEntity : MonoBehaviour
 {
-    public GameObject entityBase;
     [SerializeField] SpriteRenderer character;
+
     [SerializeField] TMP_Text healthTMP;
     [SerializeField] TMP_Text shieldTMP;
     [SerializeField] TMP_Text sanityTMP;
     [SerializeField] TMP_Text nameTMP;
 
+
+    public Transform buffLocation;
+    public Vector3 originPos;
+    public CharacterEntityData chEntityData;
+
+    // Status for Buff?
+    public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
+
+    // Status
     public int maxHealth;
     public int health;
     public int shield;
     public bool isUseSanity;
     public int maxSanity;
     public int sanity;
-    public Vector3 originPos;
-    public CharacterEntityData chEntityData;
     public List<Buff> ownBuffs;
-
-    // Status for Buff?
-    public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
 
 
 
@@ -62,7 +66,7 @@ public class CharacterEntity : MonoBehaviour
     {
         if (nameTMP != null)
             nameTMP.text = this.chEntityData.name;
-        
+
         character.sprite = this.chEntityData.sprite;
         healthTMP.text = $"{health.ToString()} / {maxHealth.ToString()}";
         shieldTMP.text = shield.ToString();
@@ -70,21 +74,40 @@ public class CharacterEntity : MonoBehaviour
 
     }
 
-    #endregion
-
     public void KillMyself()
     {
         EnemyManager.Inst.RemoveEnemy(this);
-        this.entityBase.transform.DOKill();
-        DestroyImmediate(this.entityBase);
+        this.transform.gameObject.transform.DOKill();
+        DestroyImmediate(this.transform.gameObject);
     }
 
-    public bool isAlive()
+    public void BuffAlignment()
+    {
+        for (int i = 0; i < ownBuffs.Count; i++)
+        {
+            Buff buff = ownBuffs[i];
+            Vector3 tempVec = new Vector3((i % 5) * 1.5f, -(i / 5) * 1.5f, 0);
+            buff.MoveTransform(new PRS(tempVec, Utils.QI, buff.transform.localScale), true, 0.1f); // TODO: localScale 맞는지 확인 
+        }
+    }
+
+    #endregion
+
+    public bool IsAlive()
     {
         return health > 0 ? true : false;
     }
 
-    public void resetShield(int amount = -1) // 쉴드 까는 스크립트
+
+    public void ActivateBuff() // TODO: 이거 더 적절한 이름 없으려나? 버프 활성화 하기
+    {
+        foreach (Buff buff in ownBuffs)
+        {
+            buff.ActivateBuff();
+        }
+    }
+
+    public void ResetShield(int amount = -1) // 쉴드 까는 스크립트
     {
         if (!isResetShield)
         {
@@ -100,4 +123,6 @@ public class CharacterEntity : MonoBehaviour
             }
         }
     }
+
+
 }

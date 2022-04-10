@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
     public static BattleManager Inst { get; private set; }
     void Awake() => Inst = this;
 
+    [SerializeField] GameObject buffPrefab;
     [SerializeField] TMP_Text EnergyCounter;
 
     public CharacterEntity player;
@@ -27,14 +28,14 @@ public class BattleManager : MonoBehaviour
     {
         if (isMyTurn)
         {
-            player.resetShield(); // 내 턴에 내 쉴드 까기
+            player.ResetShield(); // 내 턴에 내 쉴드 까기
             FillEnergy(); // 내 턴에 에너지 리필
         }
         else
         {
             foreach (CharacterEntity enemy in EnemyManager.Inst.enemyList)
             {
-                enemy.resetShield(); // 적 턴에 적들 쉴드 까기
+                enemy.ResetShield(); // 적 턴에 적들 쉴드 까기
             }
         }
     }
@@ -47,10 +48,13 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    public void FillEnergy()
+    public void FillEnergy(bool toMax = true, int amount = 0)
     {
-        currEnergy = maxEnergy;
-
+        if (toMax)
+            currEnergy = maxEnergy;
+        else
+            currEnergy += amount;
+        
         updateEnergyCounter();
     }
 
@@ -105,8 +109,14 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void DoPerTurnBuffs()
+    public void AddBuffToTarget(CharacterEntity target, BuffData buffData)
     {
-        
+        var buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
+        var buff = buffObject.GetComponent<Buff>();
+        buffObject.name = ("buff " + Random.Range(0, 1000).ToString());
+        buff.Setup(buffData);
+
+        target.ownBuffs.Add(buff);
+        target.BuffAlignment();
     }
 }
