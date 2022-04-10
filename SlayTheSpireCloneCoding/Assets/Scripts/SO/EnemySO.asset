@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyDatas:
   - name: TestEnemy
     sprite: {fileID: 21300000, guid: 5780b5f46556b894da2913607eadb5d0, type: 3}
-    maxHealth: 20
-    initDefense: 0
+    maxHealth: 80
+    initShield: 0
     isUseSanity: 1
     maxSanity: 20
     pattern: 
