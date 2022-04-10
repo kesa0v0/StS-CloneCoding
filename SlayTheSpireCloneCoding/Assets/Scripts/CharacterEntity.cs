@@ -87,9 +87,7 @@ public class CharacterEntity : MonoBehaviour
         {
             Buff buff = ownBuffs[i];
             Vector3 tempVec = new Vector3((i % 5) * 1.25f, -(i / 5) * 1.25f, 0);
-            print(tempVec);
-            print(tempVec + buffLocation.position);
-            buff.transform.DOLocalMove(tempVec + buffLocation.localPosition, 0.05f);
+            buff.transform.DOLocalMove(tempVec, 0.05f);
         }
     }
 

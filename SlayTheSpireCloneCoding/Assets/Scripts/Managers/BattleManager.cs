@@ -75,6 +75,26 @@ public class BattleManager : MonoBehaviour
 
     #endregion
 
+    #region Buff
+    public void AddBuffToTarget(CharacterEntity target, BuffData buffData)
+    {
+        if (target == null)
+            return;
+
+        GameObject buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
+        buffObject.transform.parent = target.transform.Find("BuffList");
+        Buff buff = buffObject.GetComponent<Buff>();
+        buffObject.name = ("buff " + Random.Range(0, 1000).ToString());
+        buff.Setup(buffData);
+
+        target.ownBuffs.Add(buff);
+        target.BuffAlignment();
+    }
+
+    #endregion
+
+    #region Effects
+
     public void TargetGetDamage(CharacterEntity player, CharacterEntity target, int amount) // 데미지 받는 함-수 (Manager로 옮길수도 있워오)
     {
         int temp = target.shield - amount;
@@ -109,18 +129,5 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void AddBuffToTarget(CharacterEntity target, BuffData buffData)
-    {
-        if (target == null)
-            return;
-
-        GameObject buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
-        buffObject.transform.parent = target.transform;
-        Buff buff = buffObject.GetComponent<Buff>();
-        buffObject.name = ("buff " + Random.Range(0, 1000).ToString());
-        buff.Setup(buffData);
-
-        target.ownBuffs.Add(buff);
-        target.BuffAlignment();
-    }
+    #endregion
 }
