@@ -19,8 +19,6 @@ public class BuffData
     public void Setup(Buff buff)
     {
         this.AttatchedBuff = buff;
-        Debug.Log(buff.transform.gameObject.name);
-        Debug.Log(buff.transform.parent.parent.gameObject.name);
         this.AttatchedEntity = buff.transform.parent.parent.gameObject.GetComponent<CharacterEntity>();
     }
 

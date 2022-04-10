@@ -30,12 +30,14 @@ public class BattleManager : MonoBehaviour
         {
             player.ResetShield(); // 내 턴에 내 쉴드 까기
             FillEnergy(); // 내 턴에 에너지 리필
+            player.ActivateBuff(); // 내 턴에 내 액티브 버프 효과 발동
         }
         else
         {
             foreach (CharacterEntity enemy in EnemyManager.Inst.enemyList)
             {
                 enemy.ResetShield(); // 적 턴에 적들 쉴드 까기
+                enemy.ActivateBuff(); // 적 턴에 적 액티브 버프 효과 발동
             }
         }
     }
