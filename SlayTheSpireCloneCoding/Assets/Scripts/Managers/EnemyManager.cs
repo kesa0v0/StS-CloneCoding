@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] Transform enemyLocation;
     [SerializeField] Transform enemyLocationLeft;
     [SerializeField] Transform enemyLocationRight;
-    [SerializeField] List<CharacterEntity> enemyList;
+    public List<CharacterEntity> enemyList;
 
 	void EnemyAlignment() // 적 정렬
 	{

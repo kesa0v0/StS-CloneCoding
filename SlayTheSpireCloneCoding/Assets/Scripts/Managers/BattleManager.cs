@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] TMP_Text EnergyCounter;
 
+    public CharacterEntity player;
+
     public int maxEnergy;
     public int currEnergy;
 
@@ -25,7 +27,15 @@ public class BattleManager : MonoBehaviour
     {
         if (isMyTurn)
         {
+            player.resetShield(); // 내 턴에 내 쉴드 까기
             FillEnergy(); // 내 턴에 에너지 리필
+        }
+        else
+        {
+            foreach (CharacterEntity enemy in EnemyManager.Inst.enemyList)
+            {
+                enemy.resetShield(); // 적 턴에 적들 쉴드 까기
+            }
         }
     }
 

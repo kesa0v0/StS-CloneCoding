@@ -10,13 +10,11 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] NotificationPanel notificationPanel;
 
-    // Start is called before the first frame update
     void Start()
     {
         TurnManager.Inst.StartGame();
     }
 
-    // Update is called once per frame
     void Update()
     {
 #if UNITY_EDITOR

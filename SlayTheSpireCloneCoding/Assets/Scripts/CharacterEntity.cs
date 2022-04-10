@@ -23,6 +23,11 @@ public class CharacterEntity : MonoBehaviour
     public CharacterEntityData chEntityData;
     public List<Buff> ownBuffs;
 
+    // Status for Buff?
+    public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
+
+
+
     public void Setup(CharacterEntityData entityData)
     {
         name = entityData.name;
@@ -38,6 +43,8 @@ public class CharacterEntity : MonoBehaviour
         this.chEntityData = entityData;
         UpdateTMP();
     }
+
+    #region UI
 
     public void MoveTransform(Vector3 pos, bool useDotween, float dotweenTime = 0)
     {
@@ -63,6 +70,8 @@ public class CharacterEntity : MonoBehaviour
 
     }
 
+    #endregion
+
     public void KillMyself()
     {
         EnemyManager.Inst.RemoveEnemy(this);
@@ -73,5 +82,22 @@ public class CharacterEntity : MonoBehaviour
     public bool isAlive()
     {
         return health > 0 ? true : false;
+    }
+
+    public void resetShield(int amount = -1) // 쉴드 까는 스크립트
+    {
+        if (!isResetShield)
+        {
+            if (amount >= 0) // 이게 필요할진 모르겠지만, 일정 부분만 까는 스크립트
+            {
+                this.shield -= amount;
+                UpdateTMP();
+            }
+            else
+            {
+                this.shield = 0;
+                UpdateTMP();
+            }
+        }
     }
 }
