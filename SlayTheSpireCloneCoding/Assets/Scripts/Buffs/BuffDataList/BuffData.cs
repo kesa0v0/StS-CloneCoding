@@ -20,8 +20,8 @@ public class BuffData
     {
         this.AttatchedBuff = buff;
         Debug.Log(buff.transform.gameObject.name);
-        // Debug.Log(buff.transform.parent.gameObject.name);
-        // this.AttatchedEntity = buff.transform.parent.gameObject.GetComponent<CharacterEntity>();
+        Debug.Log(buff.transform.parent.gameObject.name);
+        this.AttatchedEntity = buff.transform.parent.gameObject.GetComponent<CharacterEntity>();
     }
 
     protected virtual void StaticEffect()

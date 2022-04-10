@@ -86,8 +86,10 @@ public class CharacterEntity : MonoBehaviour
         for (int i = 0; i < ownBuffs.Count; i++)
         {
             Buff buff = ownBuffs[i];
-            Vector3 tempVec = new Vector3((i % 5) * 1.5f, -(i / 5) * 1.5f, 0);
-            buff.MoveTransform(new PRS(tempVec, Utils.QI, buff.transform.localScale), true, 0.1f); // TODO: localScale 맞는지 확인 
+            Vector3 tempVec = new Vector3((i % 5) * 1.25f, -(i / 5) * 1.25f, 0);
+            print(tempVec);
+            print(tempVec + buffLocation.position);
+            buff.transform.DOLocalMove(tempVec + buffLocation.localPosition, 0.05f);
         }
     }
 

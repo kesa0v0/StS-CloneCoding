@@ -123,13 +123,14 @@ public class CardManager : MonoBehaviour
     void Start() // 시작할 때 덱 셋업
     {
 
-        allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기 //TODO: 카드가 뽑는 개수 이하로 줄었을 때 어떤지 확인
-            new DealDamage(),
-            new DealDamage(),
-            new DealDamage(),
-            new AddShield(),
-            new AddShield(),
-            new AddShield(),
+        allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기 //TODO: 카드가 뽑는 개수 이하로 줄었을 때 오류 해결
+
+            new Smite(),
+            new Smite(),
+            new Smite(),
+            new Smite(),
+            new Smite(),
+            new Smite(),
             new Smite(),
             new Smite(),
         };

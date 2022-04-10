@@ -111,8 +111,12 @@ public class BattleManager : MonoBehaviour
 
     public void AddBuffToTarget(CharacterEntity target, BuffData buffData)
     {
-        var buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
-        var buff = buffObject.GetComponent<Buff>();
+        if (target == null)
+            return;
+
+        GameObject buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
+        buffObject.transform.parent = target.transform;
+        Buff buff = buffObject.GetComponent<Buff>();
         buffObject.name = ("buff " + Random.Range(0, 1000).ToString());
         buff.Setup(buffData);
 
