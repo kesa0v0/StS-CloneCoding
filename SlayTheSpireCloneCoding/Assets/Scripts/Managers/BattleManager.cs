@@ -13,6 +13,22 @@ public class BattleManager : MonoBehaviour
     public int maxEnergy;
     public int currEnergy;
 
+    private void Start() {
+        TurnManager.OnTurnStarted += OnTurnStarted; // 턴 시작시 이벤트 반응 추가
+    }
+
+    private void OnDestroy() {
+        TurnManager.OnTurnStarted -= OnTurnStarted; // 턴 시작시 이벤트 반응 제거
+    }
+
+    void OnTurnStarted(bool isMyTurn)
+    {
+        if (isMyTurn)
+        {
+            FillEnergy(); // 내 턴에 에너지 리필
+        }
+    }
+
     #region Energy
 
     void updateEnergyCounter()
@@ -51,7 +67,7 @@ public class BattleManager : MonoBehaviour
         if (temp > 0)
         {
             target.shield = temp;
-            print($"쉴드: {amount}"); // amount 플로팅 텍스트(쉴드로 방어한 데미지)
+            print($"쉴드뎀: {amount}"); // amount 플로팅 텍스트(쉴드로 방어한 데미지)
         }
         else if (temp == 0)
         {
@@ -62,7 +78,7 @@ public class BattleManager : MonoBehaviour
         {
             target.shield = 0;
             target.health += temp;
-           print($"쉴드: { Mathf.Abs(temp) }, 체력뎀: { target.health+temp }"); // abs(temp), health+temp 플로팅 텍스트(쉴드 방어 데미지 + 체력에 받은 데미지)p
+           print($"쉴드뎀: { target.shield }, 체력뎀: { target.health+temp }"); // abs(temp), health+temp 플로팅 텍스트(쉴드 방어 데미지 + 체력에 받은 데미지)p
         }
 
         target.UpdateTMP();

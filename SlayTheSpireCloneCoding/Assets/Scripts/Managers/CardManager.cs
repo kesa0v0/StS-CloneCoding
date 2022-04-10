@@ -161,13 +161,8 @@ public class CardManager : MonoBehaviour
     {
         if (isMyTurn)
         {
-            // 남은 방어도 버리기?
-            
-
-            BattleManager.Inst.FillEnergy(); // 내 턴에 에너지 리필
             PickupCards(pickupCardNum); // 내 턴에 손 카드 받기
         }
-        
     }
 
     public IEnumerator EndTurnCards()
