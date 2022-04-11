@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class BuffData
 {
-    [SerializeField] Buff AttatchedBuff;
-    [SerializeField] CharacterEntity AttatchedEntity;
-    [SerializeField] string name;
+    public Buff attatchedBuff;
+    public CharacterEntity attatchedEntity;
+    public string name;
     public Sprite sprite;
 
     public bool isPerTurn;
@@ -18,11 +18,18 @@ public class BuffData
 
     public void Setup(Buff buff)
     {
-        this.AttatchedBuff = buff;
-        this.AttatchedEntity = buff.transform.parent.parent.gameObject.GetComponent<CharacterEntity>();
+        this.attatchedBuff = buff;
+        this.attatchedEntity = buff.transform.parent.parent.gameObject.GetComponent<CharacterEntity>();
+
+        StaticEffectOn();
     }
 
-    protected virtual void StaticEffect()
+    protected virtual void StaticEffectOn()
+    {
+        
+    }
+
+    protected virtual void StaticEffectOff()
     {
         
     }
@@ -43,7 +50,8 @@ public class BuffData
 
             if (lifespan <= 0)
             {
-                AttatchedBuff.DestroyBuff();
+                StaticEffectOff();
+                attatchedBuff.DestroyBuff();
             }
         }
     }

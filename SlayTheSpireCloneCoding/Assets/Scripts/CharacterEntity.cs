@@ -20,6 +20,8 @@ public class CharacterEntity : MonoBehaviour
 
     // Status for Buff?
     public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
+    public int vulnerablePerc = 0;
+    public int power = 0;
 
     // Status
     public int maxHealth;

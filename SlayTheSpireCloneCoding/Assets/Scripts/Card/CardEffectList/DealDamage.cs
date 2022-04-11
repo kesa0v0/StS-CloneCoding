@@ -25,6 +25,6 @@ public class DealDamage : CardData
     public override void ApplyEffect()
     {
         base.ApplyEffect();
-        BattleManager.Inst.TargetGetDamage(null, target, _damagePerReinforce[reinforcedLevel]);
+        BattleManager.Inst.TargetGetDamage(player, target, _damagePerReinforce[reinforcedLevel]);
     }
 }

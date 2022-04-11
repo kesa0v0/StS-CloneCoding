@@ -21,7 +21,7 @@ public class Smite : CardData
     public override void ApplyEffect()
     {
         base.ApplyEffect();
-        BattleManager.Inst.TargetGetDamage(null, target, _damagePerReinforce[reinforcedLevel]);
-        BattleManager.Inst.AddBuffToTarget(target, new SampleBuff()); // TODO: 취약Vulnerable로 고치기
+        BattleManager.Inst.TargetGetDamage(player, target, _damagePerReinforce[reinforcedLevel]);
+        BattleManager.Inst.AddBuffToTarget(target, new BuffVulnerable()); // TODO: 취약Vulnerable로 고치기
     }
 }

@@ -17,10 +17,11 @@ public class CardManager : MonoBehaviour
     [SerializeField] Transform handDeckRight;
     [SerializeField] GameObject TargetIndicator;
     [SerializeField] ECardState eCardState;
+    [SerializeField] CharacterEntity player;
 
     public List<CardData> allCardDeck; // 전체 카드 덱   // cardso
     [SerializeField] List<Card> availableDeck; // TODO: Card-> CardData로 바꿀수도 있워오
-    [SerializeField] List<Card> handDeck; // 손에 들고있는 카드()들 리스트
+    [SerializeField] List<Card> handDeck; // 손에 들고있는 카드들 리스트
     [SerializeField] List<Card> discardedDeck;
     
     public int pickupCardNum;
@@ -46,7 +47,8 @@ public class CardManager : MonoBehaviour
     }
 
     Card MakeCard(CardData cardData) // 카드 Instantiate
-    {
+    { 
+        cardData.player = this.player;
         var cardObject = Instantiate(cardPrefab, availableDeckPos.position, Utils.QI);
         var card = cardObject.GetComponent<Card>();
         card.Setup(cardData);
@@ -124,15 +126,14 @@ public class CardManager : MonoBehaviour
     {
 
         allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기 //TODO: 카드가 뽑는 개수 이하로 줄었을 때 오류 해결
-
+            new AddShield(),
+            new AddShield(),
+            new AddShield(),
+            new DealDamage(),
+            new DealDamage(),
+            new DealDamage(),
             new Smite(),
-            new Smite(),
-            new Smite(),
-            new Smite(),
-            new Smite(),
-            new Smite(),
-            new Smite(),
-            new Smite(),
+            new Power(),
         };
 
 

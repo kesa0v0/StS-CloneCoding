@@ -1187,6 +1187,7 @@ MonoBehaviour:
   handDeckRight: {fileID: 1731051265}
   TargetIndicator: {fileID: 1552164614}
   eCardState: 0
+  player: {fileID: 1886701421}
   allCardDeck: []
   availableDeck: []
   handDeck: []
@@ -2331,6 +2332,8 @@ MonoBehaviour:
     isUseSanity: 0
     maxSanity: 0
   isResetShield: 0
+  vulnerablePerc: 0
+  power: 0
   maxHealth: 80
   health: 80
   shield: 0

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SampleBuff : BuffData
+public class BuffSample : BuffData
 {
-    public SampleBuff()
+    public BuffSample()
     {
         hasLifespan = false;
         isPerTurn = true;
@@ -13,9 +13,15 @@ public class SampleBuff : BuffData
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_12");
     }
 
-    protected override void StaticEffect()
+    protected override void StaticEffectOn()
     {
-        base.StaticEffect();
+        base.StaticEffectOn();
+
+    }
+
+    protected override void StaticEffectOff()
+    {
+        base.StaticEffectOff();
 
     }
 

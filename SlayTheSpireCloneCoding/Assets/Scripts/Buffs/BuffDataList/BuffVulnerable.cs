@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vulnerable : BuffData
+public class BuffVulnerable : BuffData
 {
-    public Vulnerable()
+    public BuffVulnerable()
     {
         hasLifespan = true;
         isPerTurn = false;
@@ -13,10 +13,18 @@ public class Vulnerable : BuffData
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_12");
     }
 
-    protected override void StaticEffect()
+    protected override void StaticEffectOn()
     {
-        base.StaticEffect();
+        base.StaticEffectOn();
 
+        attatchedEntity.vulnerablePerc = 40;
+    }
+
+    protected override void StaticEffectOff()
+    {
+        base.StaticEffectOff();
+
+        attatchedEntity.vulnerablePerc = 0;
     }
 
     protected override void ActiveEffect()
