@@ -81,7 +81,7 @@ public class CharacterEntity : MonoBehaviour
     {
         EnemyManager.Inst.RemoveEnemy(this);
         this.transform.gameObject.transform.DOKill();
-        DestroyImmediate(this.transform.gameObject);
+        Destroy(this.transform.gameObject);
     }
 
     public void BuffAlignment()

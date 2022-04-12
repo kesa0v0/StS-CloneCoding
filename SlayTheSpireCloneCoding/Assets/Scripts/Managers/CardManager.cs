@@ -369,7 +369,7 @@ public class CardManager : MonoBehaviour
     {
         handDeck.Remove(card);
         card.transform.DOKill();
-        DestroyImmediate(card.gameObject);
+        Destroy(card.gameObject);
         selectCard = null;
         CardAlignment();
     }
