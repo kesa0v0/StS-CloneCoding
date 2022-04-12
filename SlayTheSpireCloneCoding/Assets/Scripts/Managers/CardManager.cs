@@ -137,7 +137,7 @@ public class CardManager : MonoBehaviour
             new DealDamage(),
             new DealDamage(),
             new DealDamage(),
-            new Smite(),
+            new Smite(), // TODO: 이거 버리고 다시 가져올 때 뭔가 문제 있어 보이는데 확인필요
             new Power()
         };
 
@@ -372,12 +372,6 @@ public class CardManager : MonoBehaviour
         Destroy(card.gameObject);
         selectCard = null;
         CardAlignment();
-    }
-
-    //TODO: remove this debug
-    public Card getSelectCard()
-    {
-        return selectCard;
     }
 
     void ShowTargetIndicator(bool isShow)
