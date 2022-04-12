@@ -7,26 +7,13 @@ public class BuffPower : BuffData
     public BuffPower(){
         hasLifespan = false;
         isPerTurn = false;
-        amount = 0;
+        varNum = 2;
     }
 
-    protected override void StaticEffectOn()
+    protected override void StaticEffectUpdate()
     {
-        base.StaticEffectOn();
+        base.StaticEffectUpdate();
 
-        attatchedEntity.power = 2;
-    }
-
-    protected override void StaticEffectOff()
-    {
-        base.StaticEffectOff();
-
-        attatchedEntity.power = 0;
-    }
-
-    protected override void ActiveEffect()
-    {
-        base.ActiveEffect();
-        
+        attatchedEntity.power = varNum;
     }
 }

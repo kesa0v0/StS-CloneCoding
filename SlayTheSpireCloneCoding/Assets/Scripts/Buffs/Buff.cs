@@ -11,7 +11,7 @@ public class Buff : MonoBehaviour
     [SerializeField] SpriteRenderer BuffSprite;
     [SerializeField] TMP_Text BuffCountTMP;
 
-    [SerializeField] BuffData buffData;
+    public BuffData buffData;
 
     public void Setup(BuffData buffData)
     {
@@ -23,14 +23,14 @@ public class Buff : MonoBehaviour
     public void UpdateTMP()
     {
         // this.BuffSprite.sprite = buffData.sprite;  //TODO: 버프 스프라이트 제작 or 크기 고정
-        this.BuffCountTMP.text = buffData.amount.ToString();
+        this.BuffCountTMP.text = buffData.varNum.ToString();
     }
 
     public void DestroyBuff()
     {
         this.transform.parent.gameObject.GetComponent<CharacterEntity>()?.ownBuffs.Remove(this);
         this.transform.gameObject.transform.DOKill();
-        DestroyImmediate(this.transform.gameObject);
+        Destroy(this.transform.gameObject);
     }
 
     public void ActivateBuff() // TODO: 이거 더 적절한 이름 없으려나? 버프 활성화 하기

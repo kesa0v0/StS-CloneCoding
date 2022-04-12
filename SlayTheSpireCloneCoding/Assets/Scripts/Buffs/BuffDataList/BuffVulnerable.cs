@@ -8,8 +8,7 @@ public class BuffVulnerable : BuffData
     {
         hasLifespan = true;
         isPerTurn = false;
-        amount = 0;
-        lifespan = 2;
+        varNum = 2;
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_12");
     }
 
@@ -25,11 +24,5 @@ public class BuffVulnerable : BuffData
         base.StaticEffectOff();
 
         attatchedEntity.vulnerablePerc = 0;
-    }
-
-    protected override void ActiveEffect()
-    {
-        base.ActiveEffect();
-        
     }
 }

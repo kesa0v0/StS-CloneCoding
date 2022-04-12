@@ -8,8 +8,7 @@ public class BuffSample : BuffData
     {
         hasLifespan = false;
         isPerTurn = true;
-        amount = 0;
-        lifespan = 0;
+        varNum = 0;
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_12");
     }
 

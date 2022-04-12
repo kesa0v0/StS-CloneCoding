@@ -13,8 +13,7 @@ public class BuffData
     public bool isPerTurn;
     public bool hasLifespan;
 
-    public int amount;   
-    public int lifespan;
+    public int varNum;
 
     public void Setup(Buff buff)
     {
@@ -22,9 +21,16 @@ public class BuffData
         this.attatchedEntity = buff.transform.parent.parent.gameObject.GetComponent<CharacterEntity>();
 
         StaticEffectOn();
+        StaticEffectUpdate();
+        buff.UpdateTMP();
     }
 
     protected virtual void StaticEffectOn()
+    {
+        
+    }
+
+    protected virtual void StaticEffectUpdate()
     {
         
     }
@@ -46,18 +52,20 @@ public class BuffData
         
         if (hasLifespan)
         {
-            lifespan--;
+            varNum--;
 
-            if (lifespan <= 0)
+            if (varNum <= 0)
             {
                 StaticEffectOff();
                 attatchedBuff.DestroyBuff();
             }
         }
+        StaticEffectUpdate();
+        attatchedBuff.UpdateTMP();
     }
 
-    public void MergeBuff() // 버프 합산 TODO:
+    public void MergeBuff(BuffData buffData) // 버프 합산 TODO:
     {
-
+        varNum += buffData.varNum;
     }
 }

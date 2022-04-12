@@ -82,6 +82,15 @@ public class BattleManager : MonoBehaviour
     {
         if (target == null)
             return;
+        
+        foreach(Buff ownBuff in target.ownBuffs)
+        {
+            if (ownBuff.buffData.GetType() == buffData.GetType())
+            {
+                ownBuff.buffData.MergeBuff(buffData);
+                return;
+            }
+        }
 
         GameObject buffObject = Instantiate(buffPrefab, target.buffLocation.position, Utils.QI);
         buffObject.transform.parent = target.transform.Find("BuffList");
