@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     void InputCheatKey() // 디버그용 치트
     {
         if (Input.GetKeyDown(KeyCode.Keypad1)) // 카드 1개 받기
-            TurnManager.OnAddCard?.Invoke();
+            TurnManager.OnAddCard?.Invoke(1);
 
         if (Input.GetKeyDown(KeyCode.Keypad2)) // 턴 끝내기
             TurnManager.Inst.EndTurn();

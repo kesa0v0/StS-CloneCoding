@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviour
     WaitForSeconds delay05 = new WaitForSeconds(0.5f); // 0.5초 기다리기?
     WaitForSeconds delay07 = new WaitForSeconds(0.7f);
 
-    public static Action OnAddCard; // 카드추가 이벤트 TODO: 이거 BattleManager로 옮겨야할꺼같아오
+    public static Action<int> OnAddCard; // 카드추가 이벤트 TODO: 이거 BattleManager로 옮겨야할꺼같아오
     public static event Action<bool> OnTurnStarted;
     
 

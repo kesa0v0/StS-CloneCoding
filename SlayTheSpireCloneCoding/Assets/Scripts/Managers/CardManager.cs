@@ -61,7 +61,7 @@ public class CardManager : MonoBehaviour
     List<Card> ShuffleDeck(List<Card> deck) // 덱 셔플
     {
         for (int i = 0; i < deck.Count; i++)
-        { // 카드 셔플 TODO: 진짜 셔플하는거 맞는지 확인좀
+        {
             int rand = Random.Range(i, deck.Count);
             Card temp = deck[i];
             deck[i] = deck[rand];
@@ -84,10 +84,15 @@ public class CardManager : MonoBehaviour
         ShuffleDeck(availableDeck);
     }
 
-    public void addTohandDeck() // 카드뽑기
+    void addTohandDeck() // 카드뽑기
     {
         if (availableDeck.Count == 0) // 덱에 아무 카드도 없을시 덱 재생성
+        {
+            if (discardedDeck.Count == 0)
+                return;
+
             ResetAvailableDeck();
+        }
 
         Card card = availableDeck[0];
         handDeck.Add(card);
@@ -125,26 +130,22 @@ public class CardManager : MonoBehaviour
     void Start() // 시작할 때 덱 셋업
     {
 
-        allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기 //TODO: 카드가 뽑는 개수 이하로 줄었을 때 오류 해결
+        allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기
             new AddShield(),
-            new AddShield(),
-            new AddShield(),
-            new DealDamage(),
-            new DealDamage(),
+            new AddShield(),        
             new DealDamage(),
             new Smite(),
-            new Power(),
         };
 
 
         SetupAvailableDeck();
-        TurnManager.OnAddCard += addTohandDeck; // 카드추가 이벤트 반응 추가
+        TurnManager.OnAddCard += PickupCards; // 카드추가 이벤트 반응 추가
         TurnManager.OnTurnStarted += OnTurnStarted; // 턴 시작시 이벤트 반응 추가
     }
 
     void OnDestroy()
     {
-        TurnManager.OnAddCard -= addTohandDeck; // 카드추가 이벤트 반응 제거
+        TurnManager.OnAddCard -= PickupCards; // 카드추가 이벤트 반응 제거
         TurnManager.OnTurnStarted -= OnTurnStarted; // 턴 시작시 이벤트 반응 제거
     }
 
