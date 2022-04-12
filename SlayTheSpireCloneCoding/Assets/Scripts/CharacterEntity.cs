@@ -18,11 +18,7 @@ public class CharacterEntity : MonoBehaviour
     public Vector3 originPos;
     public CharacterEntityData chEntityData;
 
-    // Status for Buff?
-    public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
-    public int vulnerablePerc = 0;
-    public int power = 0;
-
+    [Header("상태창")]
     // Status
     public int maxHealth;
     public int health;
@@ -32,6 +28,11 @@ public class CharacterEntity : MonoBehaviour
     public int sanity;
     public List<Buff> ownBuffs;
 
+    [Header("버프 상태창")]
+    // Status for Buff?
+    public bool isResetShield = false; // 턴 시작때 쉴드 까는가 OX
+    public int vulnerablePerc = 0;
+    public int power = 0;
 
 
     public void Setup(CharacterEntityData entityData)
