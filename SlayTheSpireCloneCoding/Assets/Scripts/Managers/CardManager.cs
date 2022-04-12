@@ -133,8 +133,12 @@ public class CardManager : MonoBehaviour
         allCardDeck = new List<CardData>() { // 샘플 전체덱 TODO: 지우기
             new AddShield(),
             new AddShield(),        
+            new AddShield(),        
+            new DealDamage(),
+            new DealDamage(),
             new DealDamage(),
             new Smite(),
+            new Power()
         };
 
 
