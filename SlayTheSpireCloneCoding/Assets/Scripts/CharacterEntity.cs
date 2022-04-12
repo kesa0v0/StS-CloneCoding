@@ -79,7 +79,7 @@ public class CharacterEntity : MonoBehaviour
 
     public void KillMyself()
     {
-        EnemyManager.Inst.RemoveEnemy(this);
+        EnemyManager.Inst.RemoveEnemy(this);  // TODO: 현재는 적만 죽이는 상태인데, 내가 죽었을때는 게임 오버되도록 고쳐야 할듯ㄷ
         this.transform.gameObject.transform.DOKill();
         Destroy(this.transform.gameObject);
     }

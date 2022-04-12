@@ -14,6 +14,16 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] Transform enemyLocationRight;
     public List<CharacterEntity> enemyList;
 
+    private void Start() {
+        TurnManager.OnTurnStarted += OnTurnStarted; // 턴 시작시 이벤트 반응 추가
+    }
+
+    private void OnDestroy() {
+        TurnManager.OnTurnStarted -= OnTurnStarted; // 턴 시작시 이벤트 반응 제거
+    }
+
+
+    #region UI
     void EnemyAlignment() // 적 정렬
     {
         float targetY = enemyLocation.position.y;
@@ -30,7 +40,6 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-
     public void SpawnEnemy(EnemyData enemyData, int insertOrder = -1) // 적 스폰 
     { // insertOrder 오른쪽부터 0123
         var enemyObject = Instantiate(enemyPrefab, enemySpawnLocation.position, Utils.QI);
@@ -45,4 +54,22 @@ public class EnemyManager : MonoBehaviour
     {
         enemyList.Remove(enemy);
     }
+
+    #endregion
+
+    #region EnemyBehaviour
+
+    void OnTurnStarted(bool isMyTurn) //TODO: Coroutine으로 해야할지도 몰?루
+    {
+        if (!isMyTurn)
+        {
+            print("적턴!");
+
+            foreach (CharacterEntity enemy in enemyList)
+
+            TurnManager.Inst.EndTurn();
+        }
+    }
+
+    #endregion
 }

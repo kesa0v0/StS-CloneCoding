@@ -74,14 +74,15 @@ public class TurnManager : MonoBehaviour
     public void EndTurn()
     {
         isMyTurn = !isMyTurn;
-
+        
         // CardManager.Inst.EndTurnCards();
         StartCoroutine(EndTurnCo());
     }
 
     public IEnumerator EndTurnCo()
     {
-        yield return CardManager.Inst.EndTurnCards();
+        if (isMyTurn)
+            yield return CardManager.Inst.EndTurnCards();
 
         yield return StartCoroutine(StartTurnCo());
     }
