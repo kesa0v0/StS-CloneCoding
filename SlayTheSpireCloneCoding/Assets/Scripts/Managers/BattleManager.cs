@@ -109,7 +109,7 @@ public class BattleManager : MonoBehaviour
     public void TargetGetDamage(CharacterEntity origin, CharacterEntity target, int amount) // 데미지 받는 함-수
     {
         float famount =
-                (amount + origin.power) // 힘 더하기
+                (amount + (origin? origin.power : 0)) // 힘 더하기
                 * ((100 + target.vulnerablePerc) / 100f) // 취약 퍼센트
                 ;
         amount = (int) famount;

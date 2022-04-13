@@ -66,6 +66,9 @@ public class EnemyManager : MonoBehaviour
             print("적턴!");
 
             foreach (CharacterEntity enemy in enemyList)
+            {
+                
+            }
 
             TurnManager.Inst.EndTurn();
         }

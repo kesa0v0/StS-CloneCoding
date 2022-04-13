@@ -2,26 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Smite : CardData
+public class CardPoison : CardData
 {
-    public Smite() {
-        cardName = "강타";
+    public CardPoison() {
+        cardName = "중독";
         energy = 2;
         reinforcedLevel = 0;
         sprite = Resources.Load<Sprite>("Sprites/Characters/character_5"); //TODO: 리소스 이거 성능때문에 쓰면 안된다는 이야기도 있던데 ㄹㅇ인가
     }
 
-    int[] _damagePerReinforce = new int[] { 8, 12 };
+    int[] _poisonPerReinforce = new int[] { 8, 12 };
 
     public override string CardDescription()
     {
         base.CardDescription();
-        return $"대상에게 { _damagePerReinforce[reinforcedLevel] } 데미지를 가하고 { "취약" }을 { 2 } 부여합니다."; //string.format
+        return $"대상에게 { "중독" }을 { _poisonPerReinforce[reinforcedLevel] } 부여합니다."; //string.format
     }
     public override void ApplyEffect()
     {
         base.ApplyEffect();
-        BattleManager.Inst.TargetGetDamage(player, target, _damagePerReinforce[reinforcedLevel]);
-        BattleManager.Inst.AddBuffToTarget(target, new BuffVulnerable());
+        BattleManager.Inst.AddBuffToTarget(target, new BuffPoison());
     }
 }

@@ -138,7 +138,8 @@ public class CardManager : MonoBehaviour
             new DealDamage(),
             new DealDamage(),
             new Smite(), // TODO: 이거 버리고 다시 가져올 때 뭔가 문제 있어 보이는데 확인필요
-            new Power()
+            new Power(),
+            new CardPoison(),
         };
 
 
